@@ -1,28 +1,41 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { addDoc, collection, getFirestore } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"; 
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDa32OfppfiC-IGnl00RnohfpuODe4l-_w",
-  authDomain: "first-884a9.firebaseapp.com",
-  projectId: "first-884a9",
-  storageBucket: "first-884a9.appspot.com",
-  messagingSenderId: "534965511773",
-  appId: "1:534965511773:web:c2bae5f1592b8ff1ed4fb4"
+  apiKey: "AIzaSyCABm4So3ommIUzXhKhKCe8oErz87GRFA4",
+  authDomain: "auth-b432f.firebaseapp.com",
+  projectId: "auth-b432f",
+  storageBucket: "auth-b432f.appspot.com",
+  messagingSenderId: "431034569828",
+  appId: "1:431034569828:web:a12d94b9a7866e5cc33b71"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 
+const db = getFirestore();
+
 const auth = getAuth()
 
-function registerUser(email, password) {
+function registerUser({email, password, fullName, age}) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
+      
       alert("Successfully Registered")
+
+      addDoc(collection(db, "users"), {
+        fullName, email, age
+      })
+      .then(() => {
+        alert("Successfully added data in db")
+      })
+      .catch((e) => {
+        alert(e.message)
+      })
+      
     })
     .catch((e) => {
       alert(e.message)
