@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react' //hooks (built in functions)
 import Signup from './views/Auth/Signup';
 import Login from './views/Auth/Login';
-import CreateAd from './views/Auth/Ad';
-import Home from './views/Auth/Home';
+import CreateAd from './views/Ad';
+import Home from './views/Home';
 import './App.css';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 

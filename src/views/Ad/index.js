@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { storeData } from '../../../config/firebase'
+import { storeData } from '../../config/firebase'
 
 function CreateAd() {
   const [title, setTitle] = useState('')
