@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
 import { addDoc, collection, getFirestore } from "firebase/firestore"
-import { doc, setDoc } from "firebase/firestore"; 
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCABm4So3ommIUzXhKhKCe8oErz87GRFA4",
@@ -20,16 +20,18 @@ const db = getFirestore();
 
 const auth = getAuth()
 
+let Uid
+
 function registerUser({email, password, fullName, age}) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
-      
       alert("Successfully Registered")
 
       addDoc(collection(db, "users"), {
         fullName, email, age
       })
       .then(() => {
+        
         alert("Successfully added data in db")
       })
       .catch((e) => {
@@ -44,7 +46,9 @@ function registerUser({email, password, fullName, age}) {
 
 function loginUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
+    .then((userCredential) => {
+      console.log(userCredential.user)
+      Uid = userCredential.user.uid
       alert("Successfully Logged In")
     })
     .catch((e) => {
@@ -52,7 +56,21 @@ function loginUser(email, password) {
     })
 }
 
+function storeData({title, description, images, price}){
+  addDoc(collection(db, "ads"), {
+    Uid, title, description, images, price
+  })
+  .then(() => {
+    
+    alert("Successfully added data in db")
+  })
+  .catch((e) => {
+    alert(e.message)
+  })
+}
+
 export {
   registerUser,
-  loginUser
+  loginUser,
+  storeData
 }

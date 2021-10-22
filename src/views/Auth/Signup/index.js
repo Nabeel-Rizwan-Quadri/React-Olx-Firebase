@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { registerUser, loginUser } from '../../config/firebase'
+import { registerUser} from '../../../config/firebase'
 
-function Auth() {
+function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setName] = useState('')
@@ -10,25 +10,25 @@ function Auth() {
   return <div>
     <input
       onChange={e => setName(e.target.value)}
-      type="name" placeholder="Write your name" />
+      type="name" placeholder="Enter your name" />
     <br />
 
     <input
       onChange={e => setAge(e.target.value)}
-      type="number" placeholder="Write your age" />
+      type="number" placeholder="Enter your age" />
     <br />
     
     <input
       onChange={e => setEmail(e.target.value)}
-      type="email" placeholder="Write your email" />
+      type="email" placeholder="Enter your email" />
     <br />
     <input
       onChange={e => setPassword(e.target.value)}
-      type="password" placeholder="Write your password" />
+      type="password" placeholder="Enter your password" />
     <br />
     <button onClick={() => registerUser({email, password, fullName, age})}>Sign up</button>
-    <button onClick={() => loginUser(email, password)}>Login</button>
+    
   </div>
 }
 
-export default Auth
+export default Signup
