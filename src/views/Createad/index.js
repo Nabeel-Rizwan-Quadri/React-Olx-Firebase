@@ -1,19 +1,29 @@
 import { useState } from 'react'
 import { storeData } from '../../config/firebase'
+import "./index.css"
 
-function CreateAd() {
+function CreateAd( {setAllPost} )  {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [images, setImages] = useState('')
   const [price, setPrice] = useState('')
 
-  
-
   const uploadImages = () =>{
       alert("Images Uploaded")
   }
 
-  return <div>
+  const submit = () =>{
+    storeData({title, description, images, price})
+    setAllPost()
+  }
+
+  //back to dashboard
+  const back = () =>{
+    setAllPost()
+  } 
+
+  return <div className='body'>
+      <div className='card'>
 
         <p>TITLE</p>
         <input
@@ -38,7 +48,9 @@ function CreateAd() {
         placeholder="Enter an amount" />
         <br/>
 
-    <button onClick={() => storeData({title, description, images, price})}>Submit</button>
+    <button onClick={submit}>Submit</button><br/>
+    <button onClick={back}>Back</button>
+    </div>
   </div>
 }
 

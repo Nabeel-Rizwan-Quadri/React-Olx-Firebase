@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
-import { addDoc, collection, getFirestore } from "firebase/firestore"
-
+import { addDoc, collection, getFirestore, setDoc, doc, getDoc } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCABm4So3ommIUzXhKhKCe8oErz87GRFA4",
@@ -15,50 +14,36 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-
 const db = getFirestore();
-
 const auth = getAuth()
 
-let Uid
-
-function registerUser({email, password, fullName, age}) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Successfully Registered")
-
-      addDoc(collection(db, "users"), {
-        fullName, email, age
+async function registerUser({email, password, fullName, age}) {
+  const {user: {uid}} = await createUserWithEmailAndPassword(auth, email, password)
+    
+      await setDoc(doc(db, "users", uid), {
+        fullName, email, age, uid
       })
-      .then(() => {
-        
-        alert("Successfully added data in db")
-      })
-      .catch((e) => {
-        alert(e.message)
-      })
-      
-    })
-    .catch((e) => {
-      alert(e.message)
-    })
+    return uid
 }
 
-function loginUser(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential.user)
-      Uid = userCredential.user.uid
-      alert("Successfully Logged In")
-    })
-    .catch((e) => {
-      alert(e.message)
-    })
+async function loginUser(email, password) {
+  const {user: {uid}} = await signInWithEmailAndPassword(auth, email, password)
+
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+    return {uid, ...docSnap.data() }
 }
 
 function storeData({title, description, images, price}){
   addDoc(collection(db, "ads"), {
-    Uid, title, description, images, price
+    title, description, images, price
   })
   .then(() => {
     
@@ -69,8 +54,13 @@ function storeData({title, description, images, price}){
   })
 }
 
+function logout(){
+  alert("This is logout from firebase")
+}
+
 export {
   registerUser,
   loginUser,
-  storeData
+  storeData,
+  logout
 }

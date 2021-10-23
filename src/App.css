@@ -38,3 +38,39 @@
     transform: rotate(360deg);
   }
 }
+
+.body {
+  background-color:grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 50vh;
+}
+
+.card{
+  background-color: whitesmoke;
+  color: black;
+  display: flex;
+  padding: 10px 10px;
+  flex-direction: column;
+  border-radius: 2%;
+  max-width: auto;
+  max-width: 50vh;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.url{
+    color: blue;
+    background-color: none;
+    border: none;
+}
+
+.button{
+  background-color: lightskyblue;
+}
