@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { storeData } from '../../config/firebase'
 import "./index.css"
 
-function CreateAd( {setAllPost} )  {
+function CreateAd( {setAllPost, uid} )  {
+  console.log(uid)
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [images, setImages] = useState('')
@@ -13,7 +15,7 @@ function CreateAd( {setAllPost} )  {
   }
 
   const submit = () =>{
-    storeData({title, description, images, price})
+    storeData({title, description, images, price, uid})
     setAllPost()
   }
 
@@ -34,18 +36,18 @@ function CreateAd( {setAllPost} )  {
         <p>Description</p>
         <input
         onChange={e => setDescription(e.target.value)}
-        placeholder="Describe the product" />
+        placeholder="Describe the product" type="string"/>
         <br />
 
         <p>Images</p>
         <button
-        onClick={uploadImages}>Upload Images</button>
+        onClick={uploadImages} type="file">Upload Images</button>
         <br />
 
         <p>Price</p>
         <input
         onChange={e => setPrice(e.target.value)}
-        placeholder="Enter an amount" />
+        placeholder="Enter an amount" type="number"/>
         <br/>
 
     <button onClick={submit}>Submit</button><br/>

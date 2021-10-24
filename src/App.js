@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <header className="">
         { user ?
-          <Dashboard/>
+          <Dashboard user={user}/>
           :
           <Auth updateUser={updateUser}/>
         }        

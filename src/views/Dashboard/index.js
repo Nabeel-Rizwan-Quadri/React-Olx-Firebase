@@ -4,8 +4,9 @@ import AllPosts from '../AllPosts'
 import { logout } from '../../config/firebase';
 import './index.css';
 
-function Dashboard() {
+function Dashboard( {user} ) {
     const [screen, setScreen] = useState("allposts")
+    console.log(user)
 
     const search = () => {
         // console.log(user)
@@ -25,7 +26,7 @@ function Dashboard() {
         <button onClick={logout} >Logout</button><br/>
         <input placeholder='search an item'/><button onClick={search}>Search</button><br/>
 
-        {screen == "createad" ? <CreateAd setAllPost={setAllPost}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
+        {screen == "createad" ? <CreateAd setAllPost={setAllPost} uid={user.uid}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
         {screen == "allposts" && <AllPosts/>}
         
     </div>

@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
-import { addDoc, collection, getFirestore, setDoc, doc, getDoc } from "firebase/firestore"
+import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query } from "firebase/firestore"
+import { useState } from "react/cjs/react.development";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCABm4So3ommIUzXhKhKCe8oErz87GRFA4",
@@ -41,9 +42,9 @@ async function loginUser(email, password) {
     return {uid, ...docSnap.data() }
 }
 
-function storeData({title, description, images, price}){
+function storeData({title, description, images, price, uid}){
   addDoc(collection(db, "ads"), {
-    title, description, images, price
+    uid, title, description, images, price
   })
   .then(() => {
     
@@ -54,13 +55,35 @@ function storeData({title, description, images, price}){
   })
 }
 
+async function callData(){
+
+  const q = query(collection(db, "ads"));
+  const querySnapshot = await getDocs(q);
+
+  let dataCopyArray = []
+  querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  // console.log(doc.id, " => ", doc.data());
+
+  //array for copying data of firestore
+  let dataCopy = doc.data()
+  console.log("copy data firebase ===> ", dataCopy)
+  dataCopyArray.push(dataCopy)
+  // data.append(dataCopy)
+  });
+
+  return  dataCopyArray
+}
+
 function logout(){
-  alert("This is logout from firebase")
+  alert("Successfully logged out")
+  window.location.reload() 
 }
 
 export {
   registerUser,
   loginUser,
   storeData,
-  logout
+  logout,
+  callData
 }

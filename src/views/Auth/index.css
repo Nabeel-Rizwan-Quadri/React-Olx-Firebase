@@ -34,4 +34,7 @@
 
   .button{
     background-color: lightskyblue;
+    background-color: none;
+      border: none;
+    color: white;
   }
