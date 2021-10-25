@@ -24,10 +24,10 @@ function Dashboard( {user} ) {
     return <div className='App'>
         <h1>This is the home page</h1>
         <button onClick={logout} >Logout</button><br/>
-        <input placeholder='search an item'/><button onClick={search}>Search</button><br/>
+        <input placeholder='Search products by name'/><button onClick={search}>Search</button><br/>
 
-        {screen == "createad" ? <CreateAd setAllPost={setAllPost} uid={user.uid}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
-        {screen == "allposts" && <AllPosts/>}
+        {screen === "createad" ? <CreateAd setAllPost={setAllPost}  user={user}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
+        {screen === "allposts" && <AllPosts/>}
         
     </div>
 }

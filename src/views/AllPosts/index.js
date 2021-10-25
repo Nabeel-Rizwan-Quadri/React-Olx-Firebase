@@ -3,27 +3,13 @@ import Post from '../../components/Post'
 import { callData } from '../../config/firebase';
 import './index.css';
 
-
 function AllPosts() {
 
-  // Api: Application Programable Interface
-  // backend server -> API -> Front End
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(res => res.json())
-    .then(res => setPost(res))
+  useEffect(async() => {
+    const data = await callData()
+    console.log("Copy data Allpost ===>", data)
+    setData(data)
   }, [])
-
-  // import { collection, query, where, getDocs } from "firebase/firestore";
-
-  // const q = query(collection(db, "cities"), where("capital", "==", true));
-
-  // const querySnapshot = await getDocs(q);
-  // querySnapshot.forEach((doc) => {
-  //   // doc.data() is never undefined for query doc snapshots
-  //   console.log(doc.id, " => ", doc.data());
-  // });
 
   const [data, setData] = useState([])
   
@@ -32,14 +18,6 @@ function AllPosts() {
   const [title, setTitle] = useState()
   const [body, setBody] = useState()
   const [editIndex, setIndex] = useState()
-
- 
-  // console.log("this is All posts ", data)
-  const CallData = async() =>{
-    const data = await callData()
-    console.log("Copy data Allpost ===>", data)
-    setData(data)
-  }
 
   const del = (index) =>{
     //to delete the post
@@ -70,11 +48,10 @@ function AllPosts() {
 
   return (
   <div className='grid-container'>
-    <button onClick={CallData()}>Refreash data</button>
     {data.map((item,index) => {
           return  <div className='item'>
             
-            <Post id={item.uid} description={item.description} title={item.title} price={item.price} del={()=>del(index)} edit={()=>edit(index)}/>
+            <Post item={item} del={()=>del(index)} edit={()=>edit(index)}/>
             {
               isEdit && editIndex === index &&
               <div>

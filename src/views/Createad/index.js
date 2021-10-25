@@ -2,53 +2,54 @@ import { useState } from 'react'
 import { storeData } from '../../config/firebase'
 import "./index.css"
 
-function CreateAd( {setAllPost, uid} )  {
-  console.log(uid)
+function CreateAd( {setAllPost, user} )  {
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [images, setImages] = useState('')
-  const [price, setPrice] = useState('')
+  let createdAt = Date(Date.now()).slice(0, 25)
 
-  const uploadImages = () =>{
-      alert("Images Uploaded")
-  }
+  const [post, setPost] = useState({
+    uid: user.uid,
+    userName: user.fullName,
+    title: "",
+    description: "",
+    price: "",
+    images: [],
+    createdAt: createdAt
+  })
 
   const submit = () =>{
-    storeData({title, description, images, price, uid})
+    console.log("During storage data from createpost", post.images.length)
+
+    storeData(post)
     setAllPost()
   }
 
+  const onChangeValues = (key, e) =>{
+      const value = key  === "images" ? e.target.files : e.target.value
+      setPost({ ...post, [key]: value})
+      console.log("data from onchange", post)
+  }
+  
   //back to dashboard
   const back = () =>{
     setAllPost()
   } 
 
+  console.log("data from createpost", post.images.length)
+
   return <div className='body'>
       <div className='card'>
 
         <p>TITLE</p>
-        <input
-        onChange={e => setTitle(e.target.value)}
-        placeholder="Title" />
-        <br />
+        <input onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
 
         <p>Description</p>
-        <input
-        onChange={e => setDescription(e.target.value)}
-        placeholder="Describe the product" type="string"/>
-        <br />
+        <input onChange={e => onChangeValues("description", e)}placeholder="Describe the product" type="string"/><br />
 
         <p>Images</p>
-        <button
-        onClick={uploadImages} type="file">Upload Images</button>
-        <br />
+        <input onChange={e => onChangeValues("images", e)} type="file" ></input><br />
 
         <p>Price</p>
-        <input
-        onChange={e => setPrice(e.target.value)}
-        placeholder="Enter an amount" type="number"/>
-        <br/>
+        <input onChange={e => onChangeValues("price", e)}placeholder="Enter an amount" type="number"/><br/>
 
     <button onClick={submit}>Submit</button><br/>
     <button onClick={back}>Back</button>

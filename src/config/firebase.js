@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
-import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query } from "firebase/firestore"
-import { useState } from "react/cjs/react.development";
+import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy } from "firebase/firestore"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCABm4So3ommIUzXhKhKCe8oErz87GRFA4",
@@ -14,9 +15,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const db = getFirestore();
+initializeApp(firebaseConfig)
+
 const auth = getAuth()
+const db = getFirestore();
+const storage = getStorage()
 
 async function registerUser({email, password, fullName, age}) {
   const {user: {uid}} = await createUserWithEmailAndPassword(auth, email, password)
@@ -42,22 +45,26 @@ async function loginUser(email, password) {
     return {uid, ...docSnap.data() }
 }
 
-function storeData({title, description, images, price, uid}){
-  addDoc(collection(db, "ads"), {
-    uid, title, description, images, price
-  })
-  .then(() => {
-    
-    alert("Successfully added data in db")
-  })
-  .catch((e) => {
-    alert(e.message)
-  })
+async function storeData(data) {
+  //Upload files to storage
+  let { images } = data
+  let imagesUrl = []
+
+  for(let i = 0; i < images.length; i++) {
+    const storageRef = ref(storage, 'ads/' + images[i].name)
+    await uploadBytes(storageRef, images[i])
+    const url = await getDownloadURL(storageRef)
+    imagesUrl.push(url)
+  }
+  data.images = imagesUrl
+  //Add data to database
+  await addDoc(collection(db, 'ads'), data)
+  alert('Data added successfully!')
 }
 
 async function callData(){
 
-  const q = query(collection(db, "ads"));
+  const q = query(collection(db, "ads"), orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
 
   let dataCopyArray = []
@@ -71,7 +78,6 @@ async function callData(){
   dataCopyArray.push(dataCopy)
   // data.append(dataCopy)
   });
-
   return  dataCopyArray
 }
 

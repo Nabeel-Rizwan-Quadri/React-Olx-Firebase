@@ -19,20 +19,33 @@ function Auth( {updateUser} ) {
   }
 
   const regUser = async () =>{
-    const uid = await registerUser({email, password, fullName, age})
-    console.log("uid", uid)
+    try{
+      const uid = await registerUser({email, password, fullName, age})
+      console.log("uid", uid)
+      alert("Account successfully created")
+      setScreen("login")
+    }
+    catch(e){
+      alert(e.message)
+    }
   }
 
   const LoginUser = async() =>{
+    try{
     const user = await loginUser(email, password)
     console.log("user data from loginuser==>", user)
     updateUser(user)
+    alert("Successfully Logged In")
+    }
+    catch(e){
+      alert(e.message)
+    }
   }
-
+ 
   return <div className='body'>
     <div className='card'>
     <>{
-            screen == "login" && 
+            screen === "login" && 
             <>
             <h1>Login</h1><br/>
 
@@ -49,7 +62,7 @@ function Auth( {updateUser} ) {
             </>
           }
           {
-            screen == "signup" && <>
+            screen === "signup" && <>
             <h1>Sign up</h1><br/>
 
             <input
