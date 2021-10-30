@@ -1,29 +1,45 @@
-import { useState } from 'react'
-import CreateAd from '../Createad'
-import AllPosts from '../AllPosts'
-import { logout } from '../../config/firebase';
-import EditInfo from '../EditInfo';
+import { useState, useEffect } from 'react'
+import { logout, copyDataFirestore } from '../../config/firebase';
+import { useHistory } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import AllPosts from '../AllPosts';
 import './index.css';
 
-function Dashboard( {user} ) {
-    const [screen, setScreen] = useState("allposts")
+function Dashboard() {
+    const history = useHistory()
+    const auth = getAuth();
+    
     const [searchedItem, setSearchedItem] = useState("")
     const [copySearchedItem, setCopySearchedItem] = useState("")
-    console.log(user)
+    const [userData, setUserData] = useState("")
+    
+    let uid = ""
 
-    const search = async() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            uid = user.uid
+        }
+        else{
+            console.log("Dashboard no user")
+        }
+      });
+
+    useEffect( async() => {
+        setUserData( await copyDataFirestore(uid) )
+        // sending request for a cpoy of current user's data from users collection
+        // saving said value in user state
+        // console.log("copyDataFirestore dashboard", userData)
+    }, [])
+
+    const search = async () => {
         // console.log(user)
         await setSearchedItem(copySearchedItem)
         alert("searching: " + copySearchedItem)
     }
 
     const SetCreateAd = () =>{
-        setScreen("createad")
+        history.push("/createad")
     } 
-
-    const setAllPost = () =>{
-        setScreen("allposts")
-    }
 
     const refresh = () =>{
         setCopySearchedItem("")
@@ -31,24 +47,41 @@ function Dashboard( {user} ) {
     }
 
     const editInfo = () =>{
-        setScreen("editInfo")
+        history.push("/editinfo")
     }
 
+    const login = () =>{
+        history.push("/auth")
+      }
+
     return <div className='App'>
-        <div className='headder'> 
-            <button onClick={editInfo} className='user'>Username: {user.fullName}</button>
-            <button className='logout' onClick={logout} >Logout</button><br/>
+        {
+            userData.fullName ? <div className='headder'> 
+            <button onClick={editInfo} className='user'>Username: {userData.fullName}</button>
+            <button onClick={logout} className='logout'>Logout</button><br/>
+            </div>
+
+            :<div className='headder'> 
+            <button onClick={login} className='logout'>Login</button>
+            </div>
+        }
         
-        </div>
+
         <h1>Welcome to the home page</h1>
+
         <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
 
         <button className='searchButton' onClick={search}>Search</button><br/>
+        <button onClick={(SetCreateAd)}>Create an AD</button>
+        <button onClick={refresh}>Refresh Data</button>
+        <AllPosts searchedItem={searchedItem}/>
+        
 
-        {screen === "createad" ? <CreateAd setAllPost={setAllPost}  user={user}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
+        {/* {screen === "createad" ? <CreateAd setAllPost={setAllPost}  user={user}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
         <button onClick={refresh}>Refresh Data</button>
         {screen === "allposts" && <AllPosts searchedItem={searchedItem}/>}
-        {screen === "editInfo" && <EditInfo user={user} setAllPost={setAllPost}/>}
+        {screen === "editInfo" && <EditInfo user={user} setAllPost={setAllPost}/>} */}
+
         <div className='footer'>COPYRIGHT 2021 ALL RIGHTS RESERVED</div>
         
     </div>

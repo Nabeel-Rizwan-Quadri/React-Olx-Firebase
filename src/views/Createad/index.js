@@ -1,10 +1,27 @@
 import { useState } from 'react'
 import { storeData } from '../../config/firebase'
+import { useHistory } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "./index.css"
 
-function CreateAd( {setAllPost, user} )  {
+function CreateAd()  {
 
   let createdAt = Date(Date.now()).slice(0, 25)
+  const history = useHistory()
+
+  const [user, setUser] = useState("")
+  
+  const auth = getAuth();
+  console.log("app ", user)
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(user)
+      console.log("if ", user.uid)
+      // ...
+    } else {
+    }
+  });
 
   const [post, setPost] = useState({
     uid: user.uid,
@@ -18,7 +35,7 @@ function CreateAd( {setAllPost, user} )  {
 
   const submit = async () =>{
     await storeData(post)
-    setAllPost()
+    history.push("/allposts")
   }
 
   const onChangeValues = (key, e) =>{
@@ -28,7 +45,7 @@ function CreateAd( {setAllPost, user} )  {
   
   //back to dashboard
   const back = () =>{
-    setAllPost()
+    history.push("/dashboard")
   } 
 
   console.log("data from createpost", post.images.length)

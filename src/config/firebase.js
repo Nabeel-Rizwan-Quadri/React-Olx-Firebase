@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile  } from "firebase/auth"
 import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy, where } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -23,7 +23,12 @@ const storage = getStorage()
 
 async function registerUser({email, password, fullName, age}) {
   const {user: {uid}} = await createUserWithEmailAndPassword(auth, email, password)
-    
+
+      await updateProfile(auth.currentUser, {
+        displayName: fullName, 
+        age: age,
+      })
+
       await setDoc(doc(db, "users", uid), {
         fullName, email, age, uid
       })
@@ -35,8 +40,6 @@ async function loginUser(email, password) {
 
   const docRef = doc(db, "users", uid);
   const docSnap = await getDoc(docRef);
-
-  console.log(docSnap)
 
   if (docSnap.exists()) {
     // console.log("Document data:", docSnap.data());
@@ -65,7 +68,7 @@ async function storeData(data) {
 }
 
 async function callData(searchedItem){
-  console.log("firebase searched data: ", searchedItem)
+  // console.log("firebase searched data: ", searchedItem)
   let dataCopyArray = []
 
   if(searchedItem){
@@ -86,48 +89,67 @@ async function callData(searchedItem){
     dataCopyArray.push(dataCopy)
   });
   }
-
   return  dataCopyArray
 }
 
-async function editInfo (user, edit){
+async function editInfo (uid, edit){
   console.log("firebase edit: ",edit)
   let dataCopyArray = []
   let newData = {}
 
-  alert("info eddited")
-  await alert(user.uid)
-  
-  // const docRef = doc(db, "users", "ECN7bDhbQFh2COpvQydCKQW6UV02");
-  // const docSnap = await getDoc(docRef);
+  await alert(uid)
 
   const q = query(collection(db, "users"))
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot)
 
-
-    querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc) => {
     let dataCopy = doc.data()
     dataCopyArray.push(dataCopy)
   });
 
   for(let i=1; i < dataCopyArray.length; i++){
-    console.log(dataCopyArray[i].uid)
-    if(dataCopyArray[i].uid == user.uid){
-      console.log("if chala")
+    if(dataCopyArray[i].uid === uid){
       newData = dataCopyArray[i]
-      console.log(dataCopyArray[i])
+      // console.log(newData)
     }
   }
-  console.log(newData)
-  newData.fullName = edit.fullName
-  newData.email = edit.email
-  newData.age = edit.age
-  console.log(newData)
-  // await deleteDoc(doc(db, "users", user.uid));
-  await setDoc(doc(db, "users", user.uid), newData)
-  alert('Data edited successfully!')
+  await updateProfile(auth.currentUser, {
+    displayName: edit.editedFullName, 
+    phoneNumber: edit.editedPhoneNumber 
+  })
+  console.log("Auth profile", auth.currentUser)
+  alert("Auth profile updated")
+  
 
+  edit.editedFullName && (newData.fullName = edit.editedFullName)
+  edit.editedAge && (newData.age = edit.editedAge)
+
+ 
+  // await deleteDoc(doc(db, "users", user.uid));
+  await setDoc(doc(db, "users", uid), newData)
+  alert('Data edited successfully!')
+}
+
+
+async function copyDataFirestore(uid){
+  let dataCopyArray = []
+  let currentUserInfo = {}
+
+  const q = query(collection(db, "users"))
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    let dataCopy = doc.data()
+    dataCopyArray.push(dataCopy)
+  });
+
+  for(let i=1; i < dataCopyArray.length; i++){
+    if(dataCopyArray[i].uid === uid){
+      currentUserInfo = dataCopyArray[i]
+      // console.log("copyDataFirestore firebase", currentUserInfo)
+    }
+  }
+  return currentUserInfo
 }
 
 async function deleteData(user){
@@ -143,7 +165,22 @@ async function updateData(user){
 
 function logout(){
   alert("Successfully logged out")
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //       user = 
+  //   }
+  //   else{
+  //       console.log("not loged in")
+  //   }
+  // });
   window.location.reload() 
+}
+
+async function updateUserProfile (){
+  await updateProfile(auth.currentUser, {
+    displayName: "Jane Q. User", 
+    photoURL: "https://example.com/jane-q-user/profile.jpg"
+  })
 }
 
 export {
@@ -154,5 +191,7 @@ export {
   callData,
   deleteData,
   updateData,
-  editInfo
+  editInfo,
+  copyDataFirestore,
+  updateUserProfile
 }

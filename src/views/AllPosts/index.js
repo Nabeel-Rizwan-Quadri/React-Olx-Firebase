@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Post from '../../components/Post'
 import { callData, updateData, deleteData } from '../../config/firebase';
+import Post from '../../components/Post'
 import './index.css';
 
 function AllPosts({searchedItem}) {
-  console.log("Allposts: ", searchedItem)
+  // console.log("Allposts search: ", searchedItem)
 
   useEffect(async() => {
     const data = await callData(searchedItem)
@@ -12,7 +12,7 @@ function AllPosts({searchedItem}) {
   }, [searchedItem])
 
   const [data, setData] = useState([])
-  const [post, setPost] = useState([])
+  // const [post, setPost] = useState([])
   
   const [isEdit, setIsEdit] = useState(false)
   const [editIndex, setIndex] = useState()
@@ -35,7 +35,7 @@ function AllPosts({searchedItem}) {
     //code to delete
     const tempPost = [...data]
     tempPost.splice(index, 1)
-    setPost(tempPost)
+    // setPost(tempPost)
 
     //firebase function
     deleteData()
@@ -47,7 +47,7 @@ function AllPosts({searchedItem}) {
     tempPost[editIndex].title = title    
     tempPost[editIndex].description = description    
     tempPost[editIndex].price = price
-    setPost(tempPost)
+    // setPost(tempPost)
     setIsEdit(false)
 
     //firebase function

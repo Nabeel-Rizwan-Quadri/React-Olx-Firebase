@@ -1,23 +1,29 @@
 import { useState } from 'react' //hooks (built in functions)
-import Auth from './views/Auth';
-import Dashboard from './views/Dashboard';
+import Route from './config/router';
 import './App.css';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 function App() {
   const [user, setUser] = useState("")
+  
+  const auth = getAuth();
+  console.log("app ", user)
 
-  const updateUser = (objUser) => {
-    setUser(objUser)
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(!!user)
+      setUser(user)
+      console.log("if ", user.uid)
+      // ...
+    } else {
+    }
+  });
 
   return (
     <div className="App">
       <header className="">
-        { user ?
-          <Dashboard user={user}/>
-          :
-          <Auth updateUser={updateUser}/>
-        }        
+        <Route/>
       </header>
     </div>
   );

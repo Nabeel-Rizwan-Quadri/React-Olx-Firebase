@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { registerUser, loginUser } from '../../config/firebase'
 import './index.css'
+import { useHistory } from 'react-router-dom'
 
-function Auth( {updateUser} ) {
+function Auth() {
+  const history = useHistory()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setName] = useState('')
   const [age, setAge] = useState('')
-
   const [screen, setScreen] = useState("login")
 
   const login = () =>{
@@ -20,8 +22,7 @@ function Auth( {updateUser} ) {
 
   const regUser = async () =>{
     try{
-      const uid = await registerUser({email, password, fullName, age})
-      // console.log("uid", uid)
+      await registerUser({email, password, fullName, age})
       alert("Account successfully created")
       setScreen("login")
     }
@@ -32,10 +33,9 @@ function Auth( {updateUser} ) {
 
   const LoginUser = async() =>{
     try{
-    const user = await loginUser(email, password)
-    // console.log("user data from loginuser==>", user)
-    updateUser(user)
+    await loginUser(email, password)
     alert("Successfully Logged In")
+    history.push('/dashboard')
     }
     catch(e){
       alert(e.message)
