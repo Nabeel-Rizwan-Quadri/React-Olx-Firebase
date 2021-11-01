@@ -2,19 +2,16 @@ import { useHistory } from "react-router-dom"
 
 function Post({ item }, del, edit) {
 
-    let {id} = item;
-
-    console.log("itemId ==> " ,id)
-
     const history = useHistory()
 
     const goToDetails = (id) => {
+        console.log(`/details/${id}`)
         history.push(`/details/${id}`)
     }
 
-    return <div onClick={goToDetails}>
+    return <div onClick={() => goToDetails(item.id)}>
         <h3 className="just">Seller Name: {item.userName}</h3>
-        <h2 className="just">Product Name: {item.title}</h2>
+        <h2  className="just">Product Name: {item.title}</h2>
         <br />
         <h4 className="just">Descrption: {item.description}</h4>
 

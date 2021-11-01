@@ -67,8 +67,8 @@ export default function App() {
           <Route path="/editinfo">
             {(ProtectedRoute(user, <EditInfo />))}
           </Route>
-          <Route exact path="/details:id">
-            <Details />
+          <Route exact path="/details/:id">
+            {ProtectedRoute(user,  <Details />)}
           </Route>
           <Route path="/">
             <Dashboard />
