@@ -3,16 +3,34 @@ import AllPosts from "../views/AllPosts";
 import Dashboard from "../views/Dashboard";
 import EditInfo from "../views/EditInfo";
 import CreateAd from "../views/Createad";
+import Details from "../views/Details";
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { useState, useEffect } from 'react'
 
 import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
-export default function route() {
+export default function App() {
+  const [isLoading, setLoading] = useState(true)
+  const [user, setUser] = useState()
+  const auth = getAuth()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, userData => {
+      setUser(userData)
+      setLoading(false)
+    })
+  }, [])
+
+  if(isLoading) return <img width="80" src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" />
+ 
+
   return (
     <Router>
       <div>
@@ -37,16 +55,20 @@ export default function route() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/auth">
-            <Auth />
+            {ProtectedRoute(!user, <Auth />, '/dashboard')}
           </Route>
           <Route path="/allposts">
-            <AllPosts />
+            {ProtectedRoute(user, <AllPosts />)}
           </Route>
           <Route path="/createad">
-            <CreateAd />
+            
+            {ProtectedRoute(user, <CreateAd user={user}/>)}
           </Route>
           <Route path="/editinfo">
-            <EditInfo />
+            {(ProtectedRoute(user, <EditInfo />))}
+          </Route>
+          <Route exact path="/details:id">
+            <Details />
           </Route>
           <Route path="/">
             <Dashboard />
@@ -55,4 +77,11 @@ export default function route() {
       </div>
     </Router>
   );
+}
+
+function ProtectedRoute(user, component, redirectTo='/auth'){
+  //if user is true or not
+  //send to compoenet
+  // else redirect to
+  return user ? component : <Redirect to={redirectTo} />
 }

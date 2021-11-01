@@ -5,20 +5,16 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 function App() {
-  const [user, setUser] = useState("")
-  
-  const auth = getAuth();
-  console.log("app ", user)
+  // const auth = getAuth();
+  // const [user, setUser] = useState("")
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log(!!user)
-      setUser(user)
-      console.log("if ", user.uid)
-      // ...
-    } else {
-    }
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     setUser(user)
+  //     // ...
+  //   } else {
+  //   }
+  // });
 
   return (
     <div className="App">

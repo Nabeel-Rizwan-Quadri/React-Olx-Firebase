@@ -1,54 +1,53 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { storeData } from '../../config/firebase'
 import { useHistory } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "./index.css"
 
-function CreateAd()  {
+function CreateAd({user})  {
+
+  const history = useHistory()
+  
+  console.log(user.displayName)
+  console.log(user.uid)
 
   let createdAt = Date(Date.now()).slice(0, 25)
-  const history = useHistory()
-
-  const [user, setUser] = useState("")
   
-  const auth = getAuth();
-  console.log("app ", user)
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user)
-      console.log("if ", user.uid)
-      // ...
-    } else {
-    }
-  });
-
-  const [post, setPost] = useState({
+  const [userData, setUserData] = useState({
     uid: user.uid,
-    userName: user.fullName,
-    title: "",
+    userName: user.displayName,
+    createdAt: createdAt,
+    price: 0,
     description: "",
-    price: "",
-    images: [],
-    createdAt: createdAt
+    title: "",
+    images: []    
   })
-
+  
   const submit = async () =>{
-    await storeData(post)
-    history.push("/allposts")
+    try{
+
+      setUserData({...userData, fullName: user.displayName})
+
+      console.log("before sending: ", userData)
+
+      await storeData(userData)
+
+      // history.push("/dashboard")
+    }
+    catch(e){
+      alert(e.message)
+    }
   }
 
   const onChangeValues = (key, e) =>{
       const value = key  === "images" ? e.target.files : e.target.value
-      setPost({ ...post, [key]: value})
+      setUserData({ ...userData, [key]: value})
+      console.log("On Change: ", userData)
   }
   
   //back to dashboard
   const back = () =>{
     history.push("/dashboard")
   } 
-
-  console.log("data from createpost", post.images.length)
 
   return <div className='body'>
       <div className='card'>

@@ -35,7 +35,7 @@ function Auth() {
     try{
     await loginUser(email, password)
     alert("Successfully Logged In")
-    history.push('/dashboard')
+
     }
     catch(e){
       alert(e.message)

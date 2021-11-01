@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile  } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut  } from "firebase/auth"
 import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy, where } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -53,6 +53,7 @@ async function loginUser(email, password) {
 
 async function storeData(data) {
   //Upload files to storage
+  console.log("Firebase Before: ", data)
   let { images } = data
   let imagesUrl = []
 
@@ -77,16 +78,16 @@ async function callData(searchedItem){
 
     querySnapshot.forEach((doc) => {
     let dataCopy = doc.data()
-    dataCopyArray.push(dataCopy)
+    dataCopyArray.push({...dataCopy, id: doc.id})
   });
   }
   else{
-    const q = query(collection(db, "ads"), orderBy("createdAt", "desc"))
+    const q = query(collection(db, "ads"), orderBy("createdAt", "asc"))
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
     let dataCopy = doc.data()
-    dataCopyArray.push(dataCopy)
+    dataCopyArray.push({...dataCopy, id: doc.id})
   });
   }
   return  dataCopyArray
@@ -164,16 +165,7 @@ async function updateData(user){
 }
 
 function logout(){
-  alert("Successfully logged out")
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //       user = 
-  //   }
-  //   else{
-  //       console.log("not loged in")
-  //   }
-  // });
-  window.location.reload() 
+  signOut(auth)
 }
 
 async function updateUserProfile (){
@@ -181,6 +173,14 @@ async function updateUserProfile (){
     displayName: "Jane Q. User", 
     photoURL: "https://example.com/jane-q-user/profile.jpg"
   })
+}
+
+async function getCurrentAd (adId){
+
+  const docRef = doc(db, "users", adId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data()
 }
 
 export {
@@ -193,5 +193,6 @@ export {
   updateData,
   editInfo,
   copyDataFirestore,
-  updateUserProfile
+  updateUserProfile,
+  getCurrentAd
 }
