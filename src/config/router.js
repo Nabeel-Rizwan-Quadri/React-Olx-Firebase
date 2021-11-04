@@ -55,7 +55,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/auth">
-            {ProtectedRoute(!user, <Auth />, '/dashboard')}
+            {ProtectedRoute(!user, <Auth />, '/')}
           </Route>
           <Route path="/allposts">
             {ProtectedRoute(user, <AllPosts />)}
@@ -70,7 +70,7 @@ export default function App() {
           <Route exact path="/details/:id">
             {ProtectedRoute(user,  <Details />)}
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Dashboard />
           </Route>
         </Switch>

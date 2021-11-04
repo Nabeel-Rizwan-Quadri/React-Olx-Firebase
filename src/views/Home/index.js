@@ -1,11 +1,13 @@
-import Route from './config/router';
+import Dashboard from "../Dashboard";
+import Footer from "../../components/Footer/Footer";
 
 function App() {
 
   return (
     <div className="App">
       <header className="">
-        <Route/>
+        <Dashboard/>
+        <Footer/>
       </header>
     </div>
   );

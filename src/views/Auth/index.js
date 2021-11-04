@@ -42,8 +42,8 @@ function Auth() {
     }
   }
  
-  return <div className='body'>
-    <div className='card'>
+  return <div className='auth_body'>
+    <div className='auth_card'>
     <>{
             screen === "login" && 
             <>
@@ -58,7 +58,7 @@ function Auth() {
             type="password" placeholder="Enter your password" /><br />
 
             <button className='button' onClick={LoginUser}>Login</button><br/>
-            <button className='url' onClick={signup}>click here for signup</button>
+            <button className='url' onClick={signup}>Dont Have an Account Register!</button>
             </>
           }
           {

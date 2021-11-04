@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AllPosts from '../AllPosts';
 import './index.css';
+import Footer from '../../components/Footer/Footer';
 
 function Dashboard() {
     const history = useHistory()
@@ -57,33 +58,37 @@ function Dashboard() {
     return <div className='App'>
         {
             userData.fullName ? <div className='headder'> 
-            <button onClick={editInfo} className='user'>Username: {userData.fullName}</button>
+            
+            <img width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
+            <button onClick={editInfo} className='user'>Welcome {userData.fullName}!</button>
+            <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
+            <button className='searchButton' onClick={search}>Search</button><br/>
             <button onClick={logout} className='logout'>Logout</button><br/>
             </div>
 
             :<div className='headder'> 
-            <button onClick={login} className='logout'>Login</button>
+            <img width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png "></img>
+            <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
+            <button className='searchButton' onClick={search}>Search</button><br/>
+            <button onClick={login} className='login'>Login</button>
             </div>
         }
         
-
-        <h1>Welcome to the home page</h1>
-
-        <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
-
-        <button className='searchButton' onClick={search}>Search</button><br/>
-        <button onClick={(SetCreateAd)}>Create an AD</button>
-        <button onClick={refresh}>Refresh Data</button>
-        <AllPosts searchedItem={searchedItem}/>
-        
+        <div className="bodys">
+            <nav>
+            <button onClick={(SetCreateAd)}>Create an AD</button>
+            <button onClick={refresh}>Refresh Data</button>
+            </nav>
+            
+            <AllPosts searchedItem={searchedItem}/>
+        </div>
 
         {/* {screen === "createad" ? <CreateAd setAllPost={setAllPost}  user={user}/> : <button onClick={(SetCreateAd)}>Create an AD</button>}
         <button onClick={refresh}>Refresh Data</button>
         {screen === "allposts" && <AllPosts searchedItem={searchedItem}/>}
         {screen === "editInfo" && <EditInfo user={user} setAllPost={setAllPost}/>} */}
 
-        <div className='footer'>COPYRIGHT 2021 ALL RIGHTS RESERVED</div>
-        
+        <Footer/>
     </div>
 }
 

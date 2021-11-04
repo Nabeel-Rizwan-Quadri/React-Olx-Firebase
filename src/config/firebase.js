@@ -164,8 +164,15 @@ async function updateData(user){
   // await deleteDoc(doc(db, "users", user.uid));
 }
 
-function logout(){
-  signOut(auth)
+async function logout(){
+  try{
+    await signOut(auth)
+    alert("successfully logged out")
+    window.location.reload()
+  }
+  catch(e){
+    alert(e.message)
+  }
 }
 
 async function updateUserProfile (){

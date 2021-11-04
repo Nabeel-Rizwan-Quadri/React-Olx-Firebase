@@ -1,19 +1,26 @@
 .App {
-    background-color: #282c34;
-    color: white;
+    justify-content: center;
     min-height: 100vh;
     min-height: 100vh;
-    position: relative;
   }
 
   .headder{
-    background-color: #282c34;
-    color: white;
-    padding: 10px;
+    border-bottom: 2px solid lightgray;
+    position: sticky !important;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    color: black;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    margin: 10px 0 10px 0;
+    z-index: 100;
   }
 
 .footer{
-  background-color: #282c34;
   padding: 10px;
   text-align: bottom;
 }
@@ -21,11 +28,10 @@
 .user{
   display: flex;
   text-align: left;
-  color: white;
+  color: black;
   background-color: transparent;
   border: none;
   font-size: large;
-
 }
 
 .user:hover{
@@ -34,10 +40,12 @@
 
 .logout{
   display: auto;
-  background-color: brown;
+  background-color: red;
   color: white;
   text-align: right;
   font-size: large;
+  padding: 10px;
+  border-top-left-radius: 5px;
 }
 
 .logout:hover{
@@ -45,21 +53,36 @@
   background-color: white;
 }
 
+.login{
+  display: auto;
+  background-color: blue;
+  color: white;
+  text-align: right;
+  font-size: large;
+  padding: 10px;
+  border-top-left-radius: 5px;
+}
+
+.login:hover{
+  color: blue;
+  background-color: white;
+}
+
 .search{
-  height: 25px;
-  width: 30%;
-  border-radius: 10px;
-  margin: 10px;
+  width: 60%;
+  border: 2px solid black;
+  padding: 12px;
+  border-top-left-radius: 5px;
 }
 
 .searchButton{
-  background-color: mediumblue;
+  background-color: black;
   color: white;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 12px;
+  border-top-left-radius: 5px;
 }
 
 .searchButton:hover{
   background-color: white;
-  color: mediumblue;
+  color: black;
 }

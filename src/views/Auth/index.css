@@ -1,25 +1,27 @@
-.body {
-    background-color:white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.auth_body{
+    background-image: url("https://wallpaperaccess.com/full/918388.jpg");
     min-height: 100vh;
     min-width: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
-  .card{
-    background-color: white;
-    border: solid;
-    border-color: black;
+  .auth_card{
+    background-color: whitesmoke;
     color: black;
-    display: flex;
     padding: 10px 10px;
-    flex-direction: column;
     border-radius: 2%;
-    max-width: auto;
-    max-width: 50vh;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    min-height: 40vh;
+    min-width: 35vh;
   }
+  
   
   *{
     margin: 0;
@@ -32,9 +34,21 @@
       border: none;
   }
 
+  .url:hover{
+    text-decoration: underline;
+  }
+
   .button{
     background-color: lightskyblue;
     background-color: none;
       border: none;
-    color: white;
+    color: black;
+  }
+
+  .button:hover{
+    background-color: white;
+    background-color: none;
+      border: none;
+    color: black;
+    border: 1px solid black;
   }

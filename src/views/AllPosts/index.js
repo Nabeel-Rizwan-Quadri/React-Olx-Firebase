@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from "react-router-dom"
 import { callData, updateData, deleteData } from '../../config/firebase';
-import Post from '../../components/Post'
 import './index.css';
 
 function AllPosts({searchedItem}) {
@@ -13,68 +13,31 @@ function AllPosts({searchedItem}) {
 
   const [data, setData] = useState([])
   // const [post, setPost] = useState([])
-  
-  const [isEdit, setIsEdit] = useState(false)
-  const [editIndex, setIndex] = useState()
 
-  const [title, setTitle] = useState()
-  const [description, setDescription] = useState()
-  const [price, setPrice] = useState()
+  const history = useHistory()
 
-  const edit = (index) =>{
-    //to edit the post
-    console.log(index)
-    setIsEdit(true)
-    setIndex(index)
-  }
-
-  const del = (index) =>{
-    //to delete the post
-    console.log("Index", index)
-
-    //code to delete
-    const tempPost = [...data]
-    tempPost.splice(index, 1)
-    // setPost(tempPost)
-
-    //firebase function
-    deleteData()
-  }
-
-  const update = () =>{
-    const tempPost = [...data]
-    console.log(tempPost[editIndex].title)
-    tempPost[editIndex].title = title    
-    tempPost[editIndex].description = description    
-    tempPost[editIndex].price = price
-    // setPost(tempPost)
-    setIsEdit(false)
-
-    //firebase function
-    updateData()
-  }
+    const goToDetails = (id) => {
+        console.log(`/details/${id}`)
+        history.push(`/details/${id}`)
+    }
 
   return (
+    <div className="allpost_body">
+      <h1 >All products</h1>
   <div className='grid-container'>
     {data.map((item,index) => {
-          return  <div className='item'>
-            
-            <Post item={item} del={()=>del(index)} edit={()=>edit(item.createdAt)}/>
-            {
-              isEdit && editIndex === index &&
-              <div>
-                <p>Edit Title</p>
-                <input onChange = {(e) => setTitle(e.target.value)}  placeholder={item.title} ></input><br/>
-                <p>Edit Descrpition</p>
-                <input onChange = {(e) => setDescription(e.target.value)}  placeholder={item.description} ></input><br/>
-                <p>Edit Price</p>
-                <input onChange = {(e) => setPrice(e.target.value)}  placeholder={item.price} ></input><br/>
+          return <div onClick={() => goToDetails(item.id)}>
 
-                <button onClick={update}>update</button>
-              </div>
-            }
-            </div>
+          <img height="auto" width="300" src={item.images[0] ? item.images[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"} ></img>
+          
+          <div className="product__cardbody" >
+              <h3 >Product Name: {item.title}</h3><br />
+              <h3 >Price: {item.price}/-</h3   ><br/>
+          </div>
+
+        </div>
         })}
+  </div>
   </div>
   )
 }

@@ -8,7 +8,7 @@ function Details() {
     console.log("adid", id)
 
     const back = () =>{
-        history.push("/dashboard")
+        history.push("/")
     }
 
     return <div className='App'>

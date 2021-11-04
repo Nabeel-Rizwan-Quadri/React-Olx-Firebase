@@ -31,7 +31,7 @@ function CreateAd({user})  {
 
       await storeData(userData)
 
-      // history.push("/dashboard")
+      history.push("/")
     }
     catch(e){
       alert(e.message)
@@ -46,7 +46,7 @@ function CreateAd({user})  {
   
   //back to dashboard
   const back = () =>{
-    history.push("/dashboard")
+    history.push("/")
   } 
 
   return <div className='body'>
