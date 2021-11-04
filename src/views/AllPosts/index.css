@@ -14,16 +14,16 @@
   }
   
   .grid-container > div {
- 
     max-width: 45vh;
-    /* box-shadow: 0px 8px 0px 5px rgba(0, 0, 0, 0.16); */
     padding: 8px;
     border: 1px solid black;
+    /* box-shadow: 0px 8px 0px 5px rgba(0, 0, 0, 0.16); */
   }
   
 
 .product__cardbody{
     border-left: 5px solid #ffce32;
+    padding-left: 10px;
 }
 
 h1{

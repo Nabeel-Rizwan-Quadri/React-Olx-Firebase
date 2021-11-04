@@ -51,9 +51,12 @@ function CreateAd({user})  {
     history.push("/")
   } 
 
-  return <div className='createad_body'>
-    <Header/>
-      <div className='createad_card'>
+  return <div className='createad_card'>
+    <div className="createad_header">
+      <Header/>
+    </div>
+      <div className="createad_view" >
+      <div className='createad_body'>
 
         <p>TITLE</p>
         <input onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
@@ -69,6 +72,7 @@ function CreateAd({user})  {
 
     <button onClick={submit}>Submit</button><br/>
     <button onClick={back}>Back</button>
+    </div>
     </div>
     <Footer/>
   </div>

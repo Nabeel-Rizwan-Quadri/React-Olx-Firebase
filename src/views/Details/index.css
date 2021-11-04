@@ -1,17 +1,18 @@
-.editinfo_app{
-    justify-content: center;
+.details_app{
     min-height: 100vh;
     min-height: 100vh;
-}
-
-.editinfo_body{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    min-width: 100vh;
 }
 
-.editinfo_header{
+.details_body{
+
+    text-align: center;
+    min-height: 100vh;
+    min-height: 100vh;
+}
+
+.details_header{
     position: -webkit-sticky;
     position: sticky;
     top: 0;

@@ -1,25 +1,40 @@
-.body {
-    background-color:#282c34;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    min-width: 50vh;
+.createad_card {
+    min-height: 100vh;
+    min-width: 100vh;
   }
   
-  .card{
+  .createad_body{
     background-color: whitesmoke;
     color: black;
-    display: flex;
-    padding: 10px 10px;
-    flex-direction: column;
-    border-radius: 2%;
-    max-width: auto;
+
+    padding: 10px;
+    margin: 10px;
     border: solid;
     border-color: black;
+    border-radius: 2%;
+
+    align-items: center;
+
+    justify-content: center;
+
+    max-width: 25vh;
+    margin-left: 90vh;
+    margin-right: 90px;
+  }
+
+  .createad_view{
+    min-height: 100vh;
+    min-width: 100vh;
   }
   
+  .createad_header{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    margin: 10px 0 10px 0;
+    z-index: 100;
+  }
+
   *{
     margin: 0;
     padding: 0;

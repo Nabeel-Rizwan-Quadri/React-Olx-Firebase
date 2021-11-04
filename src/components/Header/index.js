@@ -26,6 +26,10 @@ function Header() {
         history.push("/")
     }
 
+    const back = () =>{
+        history.push("/")
+    }
+
     return <div className='header_App'>
         {
             userName ? <div className='headder'> 
@@ -34,14 +38,15 @@ function Header() {
             <button className='user'>Welcome {userName}!</button>
             <input className='search' placeholder='Search products by name' />
             <button className='searchButton'>Search</button><br/>
-            <button className='logout'>Logout</button><br/>
+            <button onClick={(back)} className='login'>Back</button><br/>
+            <button onClick={logout} className='logout'>Logout</button><br/>
             </div>
 
             :<div className='headder'> 
             <img width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png "></img>
             <input className='search' placeholder='Search products by name'/>
             <button className='searchButton' >Search</button><br/>
-            <button onClick={logout} className='login'>Login</button>
+            <button className='login'>Login</button>
             </div>
         }
     </div>

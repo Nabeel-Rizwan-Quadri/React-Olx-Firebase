@@ -59,10 +59,11 @@ function Dashboard() {
         {
             userData.fullName ? <div className='headder'> 
             
-            <img width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
+            <img onClick={refresh} width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
             <button onClick={editInfo} className='user'>Welcome {userData.fullName}!</button>
             <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
-            <button className='searchButton' onClick={search}>Search</button><br/>
+            <button onClick={search} className='searchButton' >Search</button><br/>
+            <button onClick={(SetCreateAd)} className='login'>+ New AD</button><br/>
             <button onClick={logout} className='logout'>Logout</button><br/>
             </div>
 
@@ -74,11 +75,7 @@ function Dashboard() {
             </div>
         }
         
-        <div className="bodys">
-            <nav>
-            <button onClick={(SetCreateAd)}>Create an AD</button>
-            <button onClick={refresh}>Refresh Data</button>
-            </nav>
+        <div className="dashboard_app">
             
             <AllPosts searchedItem={searchedItem}/>
         </div>

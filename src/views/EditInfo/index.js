@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from '../../components/Footer/Footer';
 import Header from "../../components/Header";
+import "./index.css"
 
 function EditInfo () {
     useEffect( async () => {
@@ -40,14 +41,12 @@ function EditInfo () {
         setEditedData({ ...editedData, [key]: value})
     }
 
-    const back = () =>{
-        history.push("/")
-    }
-
     console.log("before edit data: ", editedData)
-    return <div>
+    return <div className="editinfo_app">
+        <div className="editinfo_header">
         <Header/>
-        <div>
+        </div>
+        <div className="editinfo_body" >
             <h1>Edit your information here </h1>
 
             <h2>Change Full Name</h2>
@@ -58,7 +57,6 @@ function EditInfo () {
             <input placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
 
             <button onClick={submit}>Edit</button><br/>
-            <button onClick={back}>back</button>
         </div>
         
         <Footer/>
