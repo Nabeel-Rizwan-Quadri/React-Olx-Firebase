@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { storeData } from '../../config/firebase'
 import { useHistory } from 'react-router-dom';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer/Footer';
 import "./index.css"
 
 function CreateAd({user})  {
@@ -49,8 +51,9 @@ function CreateAd({user})  {
     history.push("/")
   } 
 
-  return <div className='body'>
-      <div className='card'>
+  return <div className='createad_body'>
+    <Header/>
+      <div className='createad_card'>
 
         <p>TITLE</p>
         <input onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
@@ -67,6 +70,7 @@ function CreateAd({user})  {
     <button onClick={submit}>Submit</button><br/>
     <button onClick={back}>Back</button>
     </div>
+    <Footer/>
   </div>
 }
 

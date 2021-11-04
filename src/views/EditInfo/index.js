@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { editInfo, copyDataFirestore  } from "../../config/firebase"
 import { useHistory } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Footer from '../../components/Footer/Footer';
+import Header from "../../components/Header";
 
 function EditInfo () {
     useEffect( async () => {
@@ -30,7 +32,7 @@ function EditInfo () {
 
     const submit = async () =>{
         await editInfo(currentuid, editedData)
-        history.push("/dashboard")
+        history.push("/")
     }
 
     const onChangeValues = (key, e) =>{
@@ -39,22 +41,27 @@ function EditInfo () {
     }
 
     const back = () =>{
-        history.push("/dashboard")
+        history.push("/")
     }
 
     console.log("before edit data: ", editedData)
     return <div>
-        <h1>Edit your information here </h1>
+        <Header/>
+        <div>
+            <h1>Edit your information here </h1>
 
-        <h2>Change Full Name</h2>
-        <input placeholder={fullName} onChange={e => onChangeValues("editedFullName", e)}></input><br/>
-        <h2>Change Phone Number</h2>
-        <input placeholder="Enter phone no" onChange={e => onChangeValues("editedPhoneNumber", e)}></input><br/>
-        <h2>Change age</h2>
-        <input placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
+            <h2>Change Full Name</h2>
+            <input placeholder={fullName} onChange={e => onChangeValues("editedFullName", e)}></input><br/>
+            <h2>Change Phone Number</h2>
+            <input placeholder="Enter phone no" onChange={e => onChangeValues("editedPhoneNumber", e)}></input><br/>
+            <h2>Change age</h2>
+            <input placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
 
-        <button onClick={submit}>Edit</button><br/>
-        <button onClick={back}>back</button>
+            <button onClick={submit}>Edit</button><br/>
+            <button onClick={back}>back</button>
+        </div>
+        
+        <Footer/>
     </div>
 }
 
