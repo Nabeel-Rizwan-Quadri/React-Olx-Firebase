@@ -60,7 +60,6 @@ export default function App() {
             {ProtectedRoute(user, <AllPosts />)}
           </Route>
           <Route path="/createad">
-            
             {ProtectedRoute(user, <CreateAd user={user}/>)}
           </Route>
           <Route path="/editinfo">

@@ -10,12 +10,13 @@ function Details() {
 
     const { adId } = useParams()
     const [adData, setAdData] = useState()
+    let result
 
     useEffect(async() => {
-        let result = await getDataOnce(adId)
+        result = await getDataOnce(adId)
         setAdData(result)
         console.log("details AD Data: ", adData)
-    }, [])
+    }, [adData])
 
     return <div className='details_body'>
         <div className="details_header">
@@ -25,6 +26,10 @@ function Details() {
         <div className="details_body">
             <h1>Welcome to the details page</h1>  
             <h1>AD id is {adId}</h1>
+            <h1>AD id is {adData.uid}</h1>
+            <h1>AD id is {adData.title}</h1>
+            <h1>AD id is {adData.price}</h1>
+            {<img src={adData.image[0]}/>}
         </div>
         <Footer/>
     </div>

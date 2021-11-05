@@ -196,6 +196,7 @@ async function getDataOnce(adId){
   const docRef = doc(db, "ads", adId);
   const docSnap = await getDoc(docRef);
   tempData = docSnap.data()
+  console.log("temp data ",tempData)
 
   return tempData
 }
