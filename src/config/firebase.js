@@ -153,16 +153,16 @@ async function copyDataFirestore(uid){
   return currentUserInfo
 }
 
-async function deleteData(user){
-  alert("Firebase data deleted")
-  await alert(user.uid)
-}
+// async function deleteData(user){
+//   alert("Firebase data deleted")
+//   await alert(user.uid)
+// }
 
-async function updateData(user){
-  alert("Firebase data updated")
-  await alert(user.uid)
-  // await deleteDoc(doc(db, "users", user.uid));
-}
+// async function updateData(user){
+//   alert("Firebase data updated")
+//   await alert(user.uid)
+//   // await deleteDoc(doc(db, "users", user.uid));
+// }
 
 async function logout(){
   try{
@@ -190,16 +190,27 @@ async function getCurrentAd (adId){
   return docSnap.data()
 }
 
+async function getDataOnce(adId){
+  let tempData 
+
+  const docRef = doc(db, "ads", adId);
+  const docSnap = await getDoc(docRef);
+  tempData = docSnap.data()
+
+  return tempData
+}
+
 export {
   registerUser,
   loginUser,
   storeData,
   logout,
   callData,
-  deleteData,
-  updateData,
+  // deleteData,
+  // updateData,
   editInfo,
   copyDataFirestore,
   updateUserProfile,
-  getCurrentAd
+  getCurrentAd,
+  getDataOnce
 }

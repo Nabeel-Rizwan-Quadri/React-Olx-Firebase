@@ -3,6 +3,7 @@ import { storeData } from '../../config/firebase'
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/NavBar';
 import "./index.css"
 
 function CreateAd({user})  {
@@ -51,27 +52,31 @@ function CreateAd({user})  {
     history.push("/")
   } 
 
-  return <div className='createad_card'>
+  return <div className='createad_body'>
     <div className="createad_header">
       <Header/>
     </div>
+    <NavBar/>
       <div className="createad_view" >
-      <div className='createad_body'>
+      <div className='createad_card'>
 
-        <p>TITLE</p>
-        <input onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
+        <p>Product Name</p>
+        <input className="createad_input" onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
 
-        <p>Description</p>
-        <input onChange={e => onChangeValues("description", e)}placeholder="Describe the product" type="string"/><br />
+        <p>Product Category</p>
+        <input className="createad_input" onChange={e => onChangeValues("Category", e)}placeholder="Category" /><br />
+
+        <p>Product Description</p>
+        <input className="createad_des" onChange={e => onChangeValues("description", e)} type="string"/><br />
 
         <p>Images</p>
-        <input onChange={e => onChangeValues("images", e)} type="file" ></input><br />
+        <input  onChange={e => onChangeValues("images", e)} type="file" ></input><br />
 
-        <p>Price</p>
-        <input onChange={e => onChangeValues("price", e)}placeholder="Enter an amount" type="number"/><br/>
+        <p>Product Price</p>
+        <input className="createad_input" onChange={e => onChangeValues("price", e)}placeholder="Enter an amount" type="number"/><br/>
 
-    <button onClick={submit}>Submit</button><br/>
-    <button onClick={back}>Back</button>
+    <button className="createad_btn" onClick={submit}>Submit</button><br/>
+    <button className="createad_btn" onClick={back}>Back</button>
     </div>
     </div>
     <Footer/>

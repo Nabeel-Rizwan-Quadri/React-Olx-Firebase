@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { logout, copyDataFirestore } from '../../config/firebase';
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AllPosts from '../AllPosts';
 import './index.css';
 import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/NavBar';
 
 function Dashboard() {
     const history = useHistory()
@@ -59,12 +60,19 @@ function Dashboard() {
         {
             userData.fullName ? <div className='headder'> 
             
-            <img onClick={refresh} width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
-            <button onClick={editInfo} className='user'>Welcome {userData.fullName}!</button>
+            <img onClick={refresh} width="50" height= "30"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
             <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
             <button onClick={search} className='searchButton' >Search</button><br/>
-            <button onClick={(SetCreateAd)} className='login'>+ New AD</button><br/>
-            <button onClick={logout} className='logout'>Logout</button><br/>
+            <div class="dropdown">
+                <button class="dropbtn">Welcome {userData.fullName} !</button>
+                <div class="dropdown-content">
+                    <a onClick={editInfo}>Edit Info</a>
+                    <a onClick={SetCreateAd}>Post Ad</a>
+                    <a onClick={logout}>My Ads</a>
+                    <a className="logout" onClick={logout}>Logout</a>
+                </div>
+            </div>
+            
             </div>
 
             :<div className='headder'> 
@@ -76,7 +84,7 @@ function Dashboard() {
         }
         
         <div className="dashboard_app">
-            
+            <NavBar/>
             <AllPosts searchedItem={searchedItem}/>
         </div>
 

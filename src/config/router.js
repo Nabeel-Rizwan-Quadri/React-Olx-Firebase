@@ -12,7 +12,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 
@@ -28,7 +27,7 @@ export default function App() {
     })
   }, [])
 
-  if(isLoading) return <img width="80" src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" />
+  if(isLoading) return <img alt="loading gif" width="1500" src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" />
  
 
   return (
@@ -67,7 +66,7 @@ export default function App() {
           <Route path="/editinfo">
             {(ProtectedRoute(user, <EditInfo />))}
           </Route>
-          <Route exact path="/details/:id">
+          <Route exact path="/details/:adId">
             {ProtectedRoute(user,  <Details />)}
           </Route>
           <Route exact path="/">

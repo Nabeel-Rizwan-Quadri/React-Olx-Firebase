@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
-import { callData, updateData, deleteData } from '../../config/firebase';
+import { callData } from '../../config/firebase';
 import './index.css';
 
 function AllPosts({searchedItem}) {
@@ -16,19 +16,24 @@ function AllPosts({searchedItem}) {
 
   const history = useHistory()
 
-    const goToDetails = (id) => {
-        console.log(`/details/${id}`)
-        history.push(`/details/${id}`)
+    const goToDetails = (adId) => {
+        history.push(`/details/${adId}`)
     }
 
+    
   return (
     <div className="allpost_body">
-      <h1 >All products</h1>
+      {
+        searchedItem ? 
+      <h1 >Search results for "{searchedItem}"</h1>
+      : 
+      <h1 >Product Listings</h1>
+      }
   <div className='grid-container'>
     {data.map((item,index) => {
           return <div onClick={() => goToDetails(item.id)}>
 
-          <img height="auto" width="340vh" src={item.images[0] ? item.images[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"} ></img>
+          <img height="auto" width="340vh" alt="ad image" src={item.images[0] ? item.images[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"} ></img>
           
           <div className="product__cardbody" >
               <br/><h3 >Product Name: {item.title}</h3><br />

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from '../../components/Footer/Footer';
 import Header from "../../components/Header";
+import NavBar from '../../components/NavBar';
 import "./index.css"
 
 function EditInfo () {
@@ -46,6 +47,7 @@ function EditInfo () {
         <div className="editinfo_header">
         <Header/>
         </div>
+        <NavBar/>
         <div className="editinfo_body" >
             <h1>Edit your information here </h1>
 

@@ -1,25 +1,21 @@
-.createad_card {
+.createad_body {
     min-height: 100vh;
     min-width: 100vh;
   }
   
-  .createad_body{
+  .createad_card{
+    display: flex;
+    flex-direction: column;
     background-color: whitesmoke;
     color: black;
-
     padding: 10px;
-    margin: 10px;
-    border: solid;
-    border-color: black;
-    border-radius: 2%;
-
+    margin: 20px;
+    border: 2px solid grey;
     align-items: center;
-
     justify-content: center;
-
-    max-width: 25vh;
-    margin-left: 90vh;
-    margin-right: 90px;
+    
+    min-height: 100vh;
+    min-width: 100vh;
   }
 
   .createad_view{
@@ -35,11 +31,29 @@
     z-index: 100;
   }
 
-  *{
-    margin: 0;
-    padding: 0;
+  .createad_input{
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 3vh;
+    width: 40vh;
+    padding: 5px;
   }
 
-  .button{
-    background-color: lightskyblue;
+  .createad_des{
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 7vh;
+    width: 40vh;
+    padding: 5px;
   }
+
+.createad_btn{
+    border-radius: 5px;
+    height: 3vh;
+    width: 40vh;
+    padding: 10px;
+  }
+
+.createad_btn:hover{
+  color: blue;
+}

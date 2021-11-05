@@ -16,8 +16,10 @@
   .grid-container > div {
     max-width: 45vh;
     padding: 8px;
-    border: 1px solid black;
-    /* box-shadow: 0px 8px 0px 5px rgba(0, 0, 0, 0.16); */
+    border: 1px solid lightgray;
+    overflow: hidden;
+    box-shadow: 5px 5px lightgray; 
+    border-radius: 5px;
   }
   
 
