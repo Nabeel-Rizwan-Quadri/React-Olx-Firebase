@@ -6,19 +6,20 @@
   .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    grid-gap: 10px; 
+    grid-gap: 20px; 
     text-align: left;
     margin-right: 15px;
     margin-left: 15px;
     padding: 10px;
+    justify-content: center;
   }
   
   .grid-container > div {
     max-width: 45vh;
-    padding: 8px;
+    padding: 20px;
     border: 1px solid lightgray;
     overflow: hidden;
-    box-shadow: 5px 5px lightgray; 
+    box-shadow: 5px 5px 10px lightgray; 
     border-radius: 5px;
   }
   
@@ -26,6 +27,7 @@
 .product__cardbody{
     border-left: 5px solid #ffce32;
     padding-left: 10px;
+    min-width: none;
 }
 
 h1{

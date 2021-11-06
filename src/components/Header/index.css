@@ -22,26 +22,6 @@
     padding-right: 15px;
   }
 
-.footer{
-  padding: 10px;
-  text-align: bottom;
-}
-
-.login{
-  display: auto;
-  background-color: rgba(0, 0, 255, 0.63);
-  color: white;
-  text-align: right;
-  font-size: large;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.login:hover{
-  color: blue;
-  background-color: white;
-}
-
 .search{
   width: 60%;
   border: 2px solid black;
@@ -49,17 +29,6 @@
   border-radius: 5px;
 }
 
-.searchButton{
-  background-color: black;
-  color: white;
-  padding: 12px;
-  border-radius: 5px;
-}
-
-.searchButton:hover{
-  background-color: white;
-  color: black;
-}
 
 .ul {
   list-style-type: none;
@@ -88,13 +57,12 @@ li a:hover {
 }
 
 .dropbtn {
-  background-color: #ffce32;
-  color: black;
+  background-color: #333;
+  color: wheat;
   padding: 16px;
-  font-size: 16px;
   border: none;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 3px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -108,7 +76,7 @@ li a:hover {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 29vh;
+  min-width: 15vh;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   text-align: center;
@@ -117,16 +85,17 @@ li a:hover {
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 16px;
   text-decoration: none;
   display: block;
-  border: solid wheat;
+  border: 1px solid #333;
 }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: black;
+  background-color: #333;
   color: wheat;
+  transition: 0.5s all;
 }
 
 /* Show the dropdown menu on hover */

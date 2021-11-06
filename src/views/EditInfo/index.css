@@ -1,15 +1,32 @@
-.editinfo_app{
-    justify-content: center;
-    min-height: 100vh;
-    min-height: 100vh;
-}
-
-.editinfo_body{
-    display: flex;
-    flex-direction: column;
+.editinfo_body {
     min-height: 100vh;
     min-width: 100vh;
-}
+  }
+  
+  .editinfo_card{
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    color: black;
+    padding: 30px;
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 80px black; 
+
+  }
+
+  .editinfo_view{
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    min-width: 100vh;
+  }
 
 .editinfo_header{
     position: -webkit-sticky;
@@ -18,3 +35,26 @@
     margin: 10px 0 10px 0;
     z-index: 100;
   }
+
+  .editinfo_input{
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 3vh;
+    width: 40vh;
+    padding: 5px;
+
+  }
+
+  .editinfo_btn{
+    border-radius: 5px;
+    width: 400px;
+    padding: 8px;
+    background-color: wheat;
+    transition: 1s all;
+  }
+
+.editinfo_btn:hover{
+  background-color: #333;
+  color: wheat;
+  transition: 0.5s all;
+}

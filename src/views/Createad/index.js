@@ -27,13 +27,8 @@ function CreateAd({user})  {
   
   const submit = async () =>{
     try{
-
       setUserData({...userData, fullName: user.displayName})
-
-      console.log("before sending: ", userData)
-
       await storeData(userData)
-
       history.push("/")
     }
     catch(e){
@@ -59,21 +54,18 @@ function CreateAd({user})  {
     <NavBar/>
       <div className="createad_view" >
       <div className='createad_card'>
+        
+        <h1 style={{color: "wheat" , padding:15}}>Create Ad</h1>
+        
+        <input className="createad_input" onChange={e => onChangeValues("title", e)}placeholder="Product Name" /><br />
 
-        <p>Product Name</p>
-        <input className="createad_input" onChange={e => onChangeValues("title", e)}placeholder="Title" /><br />
+        <input className="createad_input" onChange={e => onChangeValues("Category", e)}placeholder="Product Category" /><br />
 
-        <p>Product Category</p>
-        <input className="createad_input" onChange={e => onChangeValues("Category", e)}placeholder="Category" /><br />
+        <input className="createad_des" onChange={e => onChangeValues("description", e)} placeholder="Product description" type="string"/><br />
 
-        <p>Product Description</p>
-        <input className="createad_des" onChange={e => onChangeValues("description", e)} type="string"/><br />
-
-        <p>Images</p>
-        <input  onChange={e => onChangeValues("images", e)} type="file" ></input><br />
-
-        <p>Product Price</p>
         <input className="createad_input" onChange={e => onChangeValues("price", e)}placeholder="Enter an amount" type="number"/><br/>
+        
+        <input onChange={e => onChangeValues("images", e)} type="file" ></input><br />
 
     <button className="createad_btn" onClick={submit}>Submit</button><br/>
     <button className="createad_btn" onClick={back}>Back</button>

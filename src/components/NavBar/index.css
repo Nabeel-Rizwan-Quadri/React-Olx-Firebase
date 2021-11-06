@@ -8,18 +8,19 @@
 
 .li {
   float: left;
-  justify-content: space-between;
+  padding-left: 50px;
 }
 
 .li a {
   display: block;
   color: whitesmoke;
-  text-align: center;
-  padding: 14px 16px;
+  padding: 15px;
   text-decoration: none;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: black;
+  color: wheat;
+  transition: 0.5s all;
 }

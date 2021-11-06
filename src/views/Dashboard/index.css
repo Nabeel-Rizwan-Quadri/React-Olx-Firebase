@@ -50,25 +50,27 @@
 }
 
 .searchButton{
-  background-color: black;
-  color: white;
+  background-color: #333;
+  color: wheat;
   padding: 12px;
   border-radius: 5px;
 }
 
 .searchButton:hover{
   background-color: white;
-  color: black;
+  color: #333;
+
+  transition: 0.5s all;
+
 }
 
 .dropbtn {
-  background-color: #ffce32;
-  color: black;
+  background-color: #333;
+  color: wheat;
   padding: 16px;
-  font-size: 16px;
   border: none;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 3px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -82,7 +84,7 @@
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 29vh;
+  min-width: 15vh;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   text-align: center;
@@ -91,23 +93,20 @@
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 16px;
   text-decoration: none;
   display: block;
-  border: solid wheat;
+  border: 1px solid #333;
 }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: black;
+  background-color: #333;
   color: wheat;
+  transition: 0.5s all;
 }
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
 }

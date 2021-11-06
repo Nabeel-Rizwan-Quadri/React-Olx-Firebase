@@ -7,13 +7,19 @@ function NavBar() {
         <nav className="nav">
           <ul className="ul">
             <li className="li">
-              <Link to="/">All Posts</Link>
+              <Link to="/">All categories</Link>
+            </li>
+            <li className="li">
+              <Link to="/">Cars</Link>
+            </li>
+            <li className="li">
+              <Link to="/">Phones</Link>
+            </li>
+            <li className="li">
+              <Link to="/">Others</Link>
             </li>
             <li className="li">
               <Link to="/createad">Sell</Link>
-            </li>
-            <li className="li">
-              <Link to="/editinfo">Edit Profile</Link>
             </li>
           </ul>
         </nav>

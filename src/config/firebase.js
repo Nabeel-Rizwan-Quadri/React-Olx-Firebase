@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut  } from "firebase/auth"
 import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy, where } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -21,16 +20,18 @@ const auth = getAuth()
 const db = getFirestore();
 const storage = getStorage()
 
-async function registerUser({email, password, fullName, age}) {
+async function registerUser({email, password, fullName, age, phoneNumber, photoURL}) {
   const {user: {uid}} = await createUserWithEmailAndPassword(auth, email, password)
 
       await updateProfile(auth.currentUser, {
         displayName: fullName, 
         age: age,
+        phoneNumber: phoneNumber,
+        photoURL: photoURL
       })
 
       await setDoc(doc(db, "users", uid), {
-        fullName, email, age, uid
+        fullName, email, age, uid, phoneNumber
       })
     return uid
 }
@@ -82,7 +83,7 @@ async function callData(searchedItem){
   });
   }
   else{
-    const q = query(collection(db, "ads"), orderBy("createdAt", "asc"))
+    const q = query(collection(db, "ads"), orderBy("createdAt", "desc"))
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
@@ -98,7 +99,7 @@ async function editInfo (uid, edit){
   let dataCopyArray = []
   let newData = {}
 
-  await alert(uid)
+  // await alert(uid)
 
   const q = query(collection(db, "users"))
   const querySnapshot = await getDocs(q);
@@ -119,7 +120,7 @@ async function editInfo (uid, edit){
     phoneNumber: edit.editedPhoneNumber 
   })
   console.log("Auth profile", auth.currentUser)
-  alert("Auth profile updated")
+  // alert("Auth profile updated")
   
 
   edit.editedFullName && (newData.fullName = edit.editedFullName)
@@ -130,7 +131,6 @@ async function editInfo (uid, edit){
   await setDoc(doc(db, "users", uid), newData)
   alert('Data edited successfully!')
 }
-
 
 async function copyDataFirestore(uid){
   let dataCopyArray = []
@@ -144,7 +144,7 @@ async function copyDataFirestore(uid){
     dataCopyArray.push(dataCopy)
   });
 
-  for(let i=1; i < dataCopyArray.length; i++){
+  for(let i=0; i < dataCopyArray.length; i++){
     if(dataCopyArray[i].uid === uid){
       currentUserInfo = dataCopyArray[i]
       // console.log("copyDataFirestore firebase", currentUserInfo)
@@ -167,7 +167,7 @@ async function copyDataFirestore(uid){
 async function logout(){
   try{
     await signOut(auth)
-    alert("successfully logged out")
+    // alert("successfully logged out")
     window.location.reload()
   }
   catch(e){
@@ -192,11 +192,10 @@ async function getCurrentAd (adId){
 
 async function getDataOnce(adId){
   let tempData 
-
+  
   const docRef = doc(db, "ads", adId);
   const docSnap = await getDoc(docRef);
   tempData = docSnap.data()
-  console.log("temp data ",tempData)
 
   return tempData
 }

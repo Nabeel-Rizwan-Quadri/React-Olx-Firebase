@@ -42,23 +42,32 @@ function EditInfo () {
         setEditedData({ ...editedData, [key]: value})
     }
 
-    console.log("before edit data: ", editedData)
-    return <div className="editinfo_app">
+    const back = () =>{
+        history.push("/")
+    }
+
+    // console.log("before edit data: ", editedData)
+    return <div className="editinfo_body">
         <div className="editinfo_header">
         <Header/>
         </div>
         <NavBar/>
-        <div className="editinfo_body" >
-            <h1>Edit your information here </h1>
+      <div className="editinfo_view" >
+        <div className="editinfo_card" >
+            <h1 style={{color: "wheat" , padding:15}}>Edit info</h1>
 
-            <h2>Change Full Name</h2>
-            <input placeholder={fullName} onChange={e => onChangeValues("editedFullName", e)}></input><br/>
-            <h2>Change Phone Number</h2>
-            <input placeholder="Enter phone no" onChange={e => onChangeValues("editedPhoneNumber", e)}></input><br/>
-            <h2>Change age</h2>
-            <input placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
+            <input className="editinfo_input" type="string" placeholder={fullName} onChange={e => onChangeValues("editedFullName", e)}></input><br/>
 
-            <button onClick={submit}>Edit</button><br/>
+            <input className="editinfo_input" type="email" placeholder={email} onChange={e => onChangeValues("editedEmail", e)}></input><br/>
+
+            <input className="editinfo_input" type="number" placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
+
+            <input type="file" onChange={e => onChangeValues("editedImageURL", e)}></input><br/>
+
+            <button className="editinfo_btn" onClick={submit}>Edit</button><br/>
+
+            <button className="editinfo_btn" onClick={back}>Back</button><br/>
+        </div>
         </div>
         
         <Footer/>

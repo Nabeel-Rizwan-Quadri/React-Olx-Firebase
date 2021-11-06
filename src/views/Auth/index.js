@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { registerUser, loginUser } from '../../config/firebase'
 import './index.css'
-import { useHistory } from 'react-router-dom'
 
 function Auth() {
-  const history = useHistory()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setName] = useState('')
-  const [age, setAge] = useState('')
+  const [age, setAge] = useState()
+  const [phoneNumber, setPhoneNo] = useState()
+  const [photoURL, setPhotoURL] = useState('')
   const [screen, setScreen] = useState("login")
 
   const login = () =>{
@@ -22,9 +22,8 @@ function Auth() {
 
   const regUser = async () =>{
     try{
-      await registerUser({email, password, fullName, age})
+      await registerUser({email, password, fullName, age, phoneNumber, photoURL})
       alert("Account successfully created")
-      setScreen("login")
     }
     catch(e){
       alert(e.message)
@@ -35,7 +34,6 @@ function Auth() {
     try{
     await loginUser(email, password)
     alert("Successfully Logged In")
-
     }
     catch(e){
       alert(e.message)
@@ -43,48 +41,60 @@ function Auth() {
   }
  
   return <div className='auth_body'>
+    <div className="auth_view" >
+      <h1>OLX APP</h1>
     <div className='auth_card'>
     <>{
             screen === "login" && 
             <>
-            <h1>Login</h1><br/>
+            <h1 style={{color: "wheat" , padding:15}} >Login</h1><br/>
 
-            <input
+            <input className="auth_input"
             onChange={e => setEmail(e.target.value)}
             type="email" placeholder="Enter your email" /><br />
 
-            <input
+            <input className="auth_input"
             onChange={e => setPassword(e.target.value)}
             type="password" placeholder="Enter your password" /><br />
 
-            <button className='button' onClick={LoginUser}>Login</button><br/>
-            <button className='url' onClick={signup}>Dont Have an Account Register!</button>
+            <button className="auth_btn" onClick={LoginUser}>Login</button><br/>
+            <button className='auth_btn' onClick={signup}>Dont Have an Account Register!</button>
             </>
           }
           {
             screen === "signup" && <>
-            <h1>Sign up</h1><br/>
+            <h1 style={{color: "wheat" , padding:15}}>Sign up</h1><br/>
 
-            <input
+            <input className="auth_input"
             onChange={e => setName(e.target.value)}
             type="name" placeholder="Enter your name" /><br/>
 
-            <input
+            <input className="auth_input"
             onChange={e => setAge(e.target.value)}
             type="number" placeholder="Enter your age" /><br/>
 
-            <input
+            <input className="auth_input"
+            onChange={e => setPhoneNo(e.target.value)}
+            type="number" placeholder="Enter your phone no" /><br/>
+            
+            <input 
+            onChange={e => setPhotoURL(e.target.value)}
+            type="file"/><br/>
+            
+
+            <input className="auth_input"
             onChange={e => setEmail(e.target.value)}
             type="email" placeholder="Enter your email" /><br/>
 
-            <input
+            <input className="auth_input"
             onChange={e => setPassword(e.target.value)}
             type="password" placeholder="Enter your password" /><br/>
 
-            <button className='button' onClick={regUser}>Sign up</button><br/>
-            <button className='url' onClick={login}>click here for login</button>
+            <button className='auth_btn' onClick={regUser}>Sign up</button><br/>
+            <button className='auth_btn' onClick={login}>click here for login</button>
             </>
           }</>
+    </div>
     </div>
   </div>
 }

@@ -1,9 +1,9 @@
 import Auth from "../views/Auth";
-import AllPosts from "../views/AllPosts";
+import AllPosts from "../components/AllPosts";
 import Dashboard from "../views/Dashboard";
 import EditInfo from "../views/EditInfo";
 import CreateAd from "../views/Createad";
-import Details from "../views/Details";
+import Details from "../components/Details";
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 
