@@ -56,7 +56,7 @@ function Dashboard() {
 
     return <div className='App'>
         {
-            userName ? <div className='headder'> 
+            userName ? <div className='headder'>
             
             <img onClick={refresh} width="50" height= "30"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
             <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
@@ -65,7 +65,7 @@ function Dashboard() {
                 <button class="dropbtn">Welcome {userName} !</button>
                 <div class="dropdown-content">
                     <a onClick={editInfo}>Edit Info</a>
-                    <a onClick={logout}>My Ads</a>
+                    <a onClick={() => history.push("/currentuserads")}>My Ads</a>
                     <a className="logout" onClick={logout}>Logout</a>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import Dashboard from "../views/Dashboard";
 import EditInfo from "../views/EditInfo";
 import CreateAd from "../views/Createad";
 import Details from "../components/Details";
+import CurrentUserAds from "../views/CurrentUserAds";
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 
@@ -64,6 +65,9 @@ export default function App() {
           </Route>
           <Route path="/editinfo">
             {(ProtectedRoute(user, <EditInfo />))}
+          </Route>
+          <Route path="/currentuserads">
+            {(ProtectedRoute(user, <CurrentUserAds />))}
           </Route>
           <Route exact path="/details/:adId">
             {ProtectedRoute(user,  <Details />)}

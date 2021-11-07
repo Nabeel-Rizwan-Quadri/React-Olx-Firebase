@@ -4,7 +4,7 @@
     min-height: 100vh;
   }
 
-  .headder{
+  .header-headder{
     border-bottom: 2px solid lightgray;
     position: sticky !important;
     height: 75px;

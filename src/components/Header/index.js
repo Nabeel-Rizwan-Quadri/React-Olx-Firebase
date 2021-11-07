@@ -46,7 +46,7 @@ function Header() {
                 <button class="dropbtn">Welcome {userName} !</button>
                 <div class="dropdown-content">
                     <a onClick={editInfo}>Edit Info</a>
-                    <a onClick={logout}>My Ads</a>
+                    <a onClick={() => history.push("/currentuserads")}>My Ads</a>
                     <a className="logout" onClick={logout}>Logout</a>
                 </div>
             </div>
