@@ -96,43 +96,44 @@ async function callData(searchedItem){
 
 async function editInfo (uid, edit){
   console.log("firebase edit: ",edit)
-  let dataCopyArray = []
-  let newData = {}
+
+  // let dataCopyArray = []
+  // let newData = {}
 
   // await alert(uid)
 
-  const q = query(collection(db, "users"))
-  const querySnapshot = await getDocs(q);
+  // const q = query(collection(db, "users"))
+  // const querySnapshot = await getDocs(q);
 
-  querySnapshot.forEach((doc) => {
-    let dataCopy = doc.data()
-    dataCopyArray.push(dataCopy)
-  });
+  // querySnapshot.forEach((doc) => {
+  //   let dataCopy = doc.data()
+  //   dataCopyArray.push(dataCopy)
+  // });
 
-  for(let i=1; i < dataCopyArray.length; i++){
-    if(dataCopyArray[i].uid === uid){
-      newData = dataCopyArray[i]
-      // console.log(newData)
-    }
-  }
+  // for(let i=1; i < dataCopyArray.length; i++){
+  //   if(dataCopyArray[i].uid === uid){
+  //     newData = dataCopyArray[i]
+  //     // console.log(newData)
+  //   }
+  // }
+  // edit.fullName && (newData.fullName = edit.editedFullName)
+  // edit.age && (newData.age = edit.editedAge)
+
   await updateProfile(auth.currentUser, {
-    displayName: edit.editedFullName, 
-    phoneNumber: edit.editedPhoneNumber 
+    displayName: edit.fullName, 
+    phoneNumber: edit.phoneNumber,
+    email: edit.email
   })
   console.log("Auth profile", auth.currentUser)
-  // alert("Auth profile updated")
+  alert("Auth profile updated")
+   
   
-
-  edit.editedFullName && (newData.fullName = edit.editedFullName)
-  edit.editedAge && (newData.age = edit.editedAge)
-
- 
-  // await deleteDoc(doc(db, "users", user.uid));
-  await setDoc(doc(db, "users", uid), newData)
+  await setDoc(doc(db, "users", uid), edit)
   alert('Data edited successfully!')
 }
 
 async function copyDataFirestore(uid){
+  console.log("firebase uid: ", uid)
   let dataCopyArray = []
   let currentUserInfo = {}
 
@@ -150,12 +151,14 @@ async function copyDataFirestore(uid){
       // console.log("copyDataFirestore firebase", currentUserInfo)
     }
   }
+  console.log("firebase data: ",currentUserInfo)
   return currentUserInfo
 }
 
-// async function deleteData(user){
+// async function deleteData(ad){
 //   alert("Firebase data deleted")
-//   await alert(user.uid)
+//   await alert(ad.uid)
+// await deleteDoc(doc(db, "users", user.uid));
 // }
 
 // async function updateData(user){

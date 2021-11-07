@@ -17,7 +17,7 @@ function EditInfo () {
 
     const [userData, setUserData] = useState("")
     const {fullName, email, age, uid} = userData
-    const [editedData, setEditedData] = useState({})
+    console.log("userdata ", userData)
     
     const history = useHistory()
     const auth = getAuth()
@@ -30,16 +30,16 @@ function EditInfo () {
         }
       });
 
-    console.log("Edit user data: ", fullName)
-
     const submit = async () =>{
-        await editInfo(currentuid, editedData)
+        console.log("submit",userData)
+        console.log("submit",currentuid)
+        await editInfo(currentuid, userData)
         history.push("/")
     }
 
     const onChangeValues = (key, e) =>{
         const value = e.target.value
-        setEditedData({ ...editedData, [key]: value})
+        setUserData({ ...userData, [key]: value})
     }
 
     const back = () =>{
@@ -56,18 +56,14 @@ function EditInfo () {
         <div className="editinfo_card" >
             <h1 style={{color: "wheat" , padding:15}}>Edit info</h1>
 
-            <input className="editinfo_input" type="string" placeholder={fullName} onChange={e => onChangeValues("editedFullName", e)}></input><br/>
-
-            <input className="editinfo_input" type="email" placeholder={email} onChange={e => onChangeValues("editedEmail", e)}></input><br/>
-
-            <input className="editinfo_input" type="number" placeholder={age} onChange={e => onChangeValues("editedAge", e)}></input><br/>
-
-            <input type="file" onChange={e => onChangeValues("editedImageURL", e)}></input><br/>
+            <input  value={fullName} className="editinfo_input" type="string" onChange={e => onChangeValues("fullName", e)}></input><br/>
+            <input value={email} className="editinfo_input" type="email" onChange={e => onChangeValues("email", e)}></input><br/>
+            <input value={age} className="editinfo_input" type="number" onChange={e => onChangeValues("age", e)}></input><br/>
+            <input type="file" onChange={e => onChangeValues("imageURL", e)}></input><br/>
 
             <button className="editinfo_btn" onClick={submit}>Edit</button><br/>
-
             <button className="editinfo_btn" onClick={back}>Back</button><br/>
-        </div>
+            </div>
         </div>
         
         <Footer/>
