@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { storeData } from '../../config/firebase'
 import { useHistory } from 'react-router-dom';
+
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import NavBar from '../../components/NavBar';
@@ -71,7 +72,6 @@ function CreateAd({user})  {
     <button className="createad_btn" onClick={back}>Back</button>
     </div>
     </div>
-    <Footer/>
   </div>
 }
 

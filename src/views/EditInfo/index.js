@@ -65,8 +65,6 @@ function EditInfo () {
             <button className="editinfo_btn" onClick={back}>Back</button><br/>
             </div>
         </div>
-        
-        <Footer/>
     </div>
 }
 

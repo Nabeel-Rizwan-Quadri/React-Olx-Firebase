@@ -5,7 +5,7 @@ import { logout } from "../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "reactstrap";
 import { updateTheme } from "../../store/actions/themeActions";
-// import "./index.css"
+import "./index.css"
 
 function Header() {
     const [userName, setUserName] = useState()
@@ -28,17 +28,27 @@ function Header() {
         }
       });   
 
-    const editInfo = () =>{
-        history.push("/editinfo")
-    }
 
     const back =()=>{
         history.push("/")
     }
 
+    const login = () =>{
+        history.push("/auth")
+      }
+
     const search = async () => {
         // console.log(user)
         await setSearchedItem(copySearchedItem)
+    }
+
+    const editInfo = () =>{
+        history.push("/editinfo")
+    }
+
+    const refresh = () =>{
+        setCopySearchedItem("")
+        setSearchedItem("")
     }
 
     const colorSelect = (theme) => {
@@ -50,22 +60,36 @@ function Header() {
 
     return <div className='header_App'>
         {
-            userName && <div className='header_headder'> 
+            userName ? <div style={{ background: themeColor }} className='headder'>
             
-            <img onClick={back} width="50" height= "30"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
-            <input className='header_search' placeholder='Search products by name' />
+            <img onClick={refresh} width="50" height= "30"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"></img>
+            <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
             <button onClick={search} className='searchButton' >Search</button><br/>
-            <div class="header_dropdown">
-                <button class="header_dropbtn">{userName}</button>
-                <div class="header_dropdown-content">
+            <div class="dropdown">
+                <button class="dropbtn">{userName}</button>
+                <div class="dropdown-content">
                     <a onClick={editInfo}>Edit Info</a>
                     <a onClick={() => history.push("/currentuserads")}>My Ads</a>
-                    <a onClick={logout}>Logout</a>
+                    <a className="logout" onClick={logout}>Logout</a>
                 </div>
             </div>
-            <div class="header_dropdown">
-            <button class="header_dropbtn">Select Theme</button>
-                <div class="header_dropdown-content">
+            <div class="dropdown">
+            <button class="dropbtn">Select Theme</button>
+                <div class="dropdown-content">
+                    <a onClick={() => colorSelect("white")}>Light Theme</a>
+                    <a onClick={() => colorSelect("grey")}>Dark Theme</a>
+                </div>
+            </div>
+            </div>
+
+            :<div className='headder'> 
+            <img onClick={back} width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png "></img>
+            <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
+            <button className='searchButton' onClick={search}>Search</button><br/>
+            <button onClick={login} className='login'>Login</button>
+            <div class="dropdown">
+            <button class="dropbtn">Select Theme</button>
+                <div class="dropdown-content">
                     <a onClick={() => colorSelect("white")}>Light Theme</a>
                     <a onClick={() => colorSelect("grey")}>Dark Theme</a>
                 </div>

@@ -5,6 +5,7 @@
 }
   .grid-container {
     display: grid;
+    grid: fixed;
     grid-template-columns: auto auto auto auto;
     grid-gap: 20px; 
     text-align: left;
@@ -18,9 +19,9 @@
     max-width: 45vh;
     padding: 20px;
     border: 1px solid lightgray;
-    overflow: hidden;
     box-shadow: 5px 5px 10px lightgray; 
     border-radius: 5px;
+
   }
   
 

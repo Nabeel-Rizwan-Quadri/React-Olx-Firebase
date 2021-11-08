@@ -50,7 +50,6 @@ function CurrentUserAds({searchedItem}) {
         </div>
         })}
   </div>
-  <Footer/>
   </div>
   )
 }
