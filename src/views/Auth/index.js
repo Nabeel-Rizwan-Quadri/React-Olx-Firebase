@@ -23,7 +23,7 @@ function Auth() {
   const regUser = async () =>{
     try{
       await registerUser({email, password, fullName, age, phoneNumber, photoURL})
-      alert("Account successfully created")
+      // alert("Account successfully created")
     }
     catch(e){
       alert(e.message)
@@ -33,7 +33,7 @@ function Auth() {
   const LoginUser = async() =>{
     try{
     await loginUser(email, password)
-    alert("Successfully Logged In")
+    // alert("Successfully Logged In")
     }
     catch(e){
       alert(e.message)

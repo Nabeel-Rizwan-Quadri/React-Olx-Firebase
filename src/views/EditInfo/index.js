@@ -47,9 +47,7 @@ function EditInfo () {
 
     // console.log("before edit data: ", editedData)
     return <div className="editinfo_body">
-        <div className="editinfo_header">
-        <Header/>
-        </div>
+          <div className='app_headder'><Header/></div>
         <NavBar/>
       <div className="editinfo_view" >
         <div className="editinfo_card" >
@@ -65,6 +63,7 @@ function EditInfo () {
             <button className="editinfo_btn" onClick={back}>Back</button><br/>
             </div>
         </div>
+        <Footer/>
     </div>
 }
 

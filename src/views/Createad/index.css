@@ -26,24 +26,6 @@
     min-height: 80vh;
     min-width: 100vh;
   }
-  
-  .createad_header{
-    border-bottom: 2px solid lightgray;
-    position: sticky !important;
-    height: 75px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: white;
-    color: black;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    margin: 10px 0 10px 0;
-    z-index: 100;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
 
   .createad_input{
     border: 2px solid black;

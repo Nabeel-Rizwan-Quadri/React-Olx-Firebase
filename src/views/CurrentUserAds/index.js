@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom"
-import { callData } from '../../config/firebase';
+import { useHistory } from "react-router-dom";
+import { getAuth, onAuthStateChanged  } from 'firebase/auth';
+import { getCurrentUserAds } from '../../config/firebase';
+
 import './index.css';
+import NavBar from '../../components/NavBar';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import NavBar from '../../components/NavBar';
 
-function CurrentUserAds({searchedItem}) {
-  // console.log("Allposts search: ", searchedItem)
+function CurrentUserAds() {
+  const auth = getAuth()
+  const [currentUid, setCurrentUid] = useState()
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+        let currentUid = user.uid
+        setCurrentUid(currentUid)
+    }
+    else{
+        console.log("Header no user")
+    }
+  });  
 
   useEffect(async() => {
-    const data = await callData(searchedItem)
+    const data = await getCurrentUserAds(currentUid)
     setData(data)
-  }, [searchedItem])
+  }, [currentUid])
 
   const [data, setData] = useState([])
   // const [post, setPost] = useState([])
@@ -27,15 +40,13 @@ function CurrentUserAds({searchedItem}) {
   return (
     <div className="currentUserAds_body">
       <div className='currrentUserAds_headder'>
-      <Header/>
+      <div className='app_headder'><Header/></div>
+
       </div>
       <NavBar/>
-      {
-        searchedItem ? 
-      <h1 >Search results for "{searchedItem}"</h1>
-      : 
+
       <h1 >My Ads</h1>
-      }
+
   <div className='grid-container'>
     {data.map((item,index) => {
           return <div onClick={() => goToDetails(item.id)}>
@@ -50,6 +61,7 @@ function CurrentUserAds({searchedItem}) {
         </div>
         })}
   </div>
+  <Footer/>
   </div>
   )
 }

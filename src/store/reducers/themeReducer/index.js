@@ -1,4 +1,4 @@
-function reducer(state = { theme: "white" }, action) {
+function ThemeReducer(state = { theme: "white" }, action) {
     switch (action.type){
         case 'UPDATE_THEME':{
             return {...state, theme:action.data}
@@ -10,4 +10,4 @@ function reducer(state = { theme: "white" }, action) {
     }
 }
 
-export default reducer
+export default ThemeReducer

@@ -3,20 +3,27 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "reactstrap";
+
 import { updateTheme } from "../../store/actions/themeActions";
+import { pushSearch } from "../../store/actions/searchActions";
+import { removeSearch } from "../../store/actions/searchActions";
+
 import "./index.css"
 
 function Header() {
-    const [userName, setUserName] = useState()
-    const [searchedItem, setSearchedItem] = useState("")
-    const [copySearchedItem, setCopySearchedItem] = useState("")
-    let displayName
     const auth = getAuth()
     const history = useHistory()
     const dispatch = useDispatch()
-    const themeColor = useSelector(state => state.theme)
-    console.log("theme color",themeColor)
+
+    let displayName
+
+    const [userName, setUserName] = useState()
+    const [copySearchedItem, setCopySearchedItem] = useState("")
+    
+    const themeColor = useSelector(state => state.themeReducer.theme)
+
+    const searchedItem = useSelector(state => state.searchReducer.searchedItem)
+    console.log("header searcheditem: ", searchedItem)
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -27,9 +34,10 @@ function Header() {
             console.log("Header no user")
         }
       });   
-
-
-    const back =()=>{
+      
+    const search = () => {
+        console.log(copySearchedItem)
+        dispatch(pushSearch(copySearchedItem))
         history.push("/")
     }
 
@@ -37,23 +45,22 @@ function Header() {
         history.push("/auth")
       }
 
-    const search = async () => {
-        // console.log(user)
-        await setSearchedItem(copySearchedItem)
-    }
-
     const editInfo = () =>{
         history.push("/editinfo")
     }
 
+    const toCurrentUserAds = () =>{
+        history.push("/currentuserads")
+    }
+
     const refresh = () =>{
+        dispatch(removeSearch())
         setCopySearchedItem("")
-        setSearchedItem("")
+        history.push("/")
     }
 
     const colorSelect = (theme) => {
-        dispatch(updateTheme(theme))
-        alert(theme, "theme")
+        dispatch(updateTheme(theme))  
         console.log("theme color",themeColor)
         console.log("on click color",theme)
     }
@@ -69,7 +76,7 @@ function Header() {
                 <button class="dropbtn">{userName}</button>
                 <div class="dropdown-content">
                     <a onClick={editInfo}>Edit Info</a>
-                    <a onClick={() => history.push("/currentuserads")}>My Ads</a>
+                    <a onClick={toCurrentUserAds}>My Ads</a>
                     <a className="logout" onClick={logout}>Logout</a>
                 </div>
             </div>
@@ -83,10 +90,10 @@ function Header() {
             </div>
 
             :<div className='headder'> 
-            <img onClick={back} width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png "></img>
+            <img onClick={refresh} width="100" height= "50"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png "></img>
             <input className='search' placeholder='Search products by name' onChange = {e => setCopySearchedItem(e.target.value)}/>
             <button className='searchButton' onClick={search}>Search</button><br/>
-            <button onClick={login} className='login'>Login</button>
+            <button onClick={login} className='searchButton'>Login</button>
             <div class="dropdown">
             <button class="dropbtn">Select Theme</button>
                 <div class="dropdown-content">

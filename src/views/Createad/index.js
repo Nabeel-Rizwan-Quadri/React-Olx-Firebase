@@ -49,9 +49,7 @@ function CreateAd({user})  {
   } 
 
   return <div className='createad_body'>
-    <div className="createad_header">
-      <Header/>
-    </div>
+
     <NavBar/>
       <div className="createad_view" >
       <div className='createad_card'>

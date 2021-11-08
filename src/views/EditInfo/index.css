@@ -28,14 +28,6 @@
     min-width: 100vh;
   }
 
-.editinfo_header{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    margin: 10px 0 10px 0;
-    z-index: 100;
-  }
-
   .editinfo_input{
     border: 2px solid black;
     border-radius: 5px;

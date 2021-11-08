@@ -154,13 +154,7 @@ async function updateUserProfile (){
   })
 }
 
-async function getCurrentAd (adId){
 
-  const docRef = doc(db, "users", adId);
-  const docSnap = await getDoc(docRef);
-
-  return docSnap.data()
-}
 
 async function getDataOnce(adId){
   let tempData 
@@ -171,6 +165,25 @@ async function getDataOnce(adId){
 
   return tempData
 }
+
+async function getCurrentUserAds(curretnUid){
+  let dataCopyArray = []
+
+  if(curretnUid){
+    const q = query(collection(db, "ads"), where("uid", "==", curretnUid))
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+    let dataCopy = doc.data()
+    dataCopyArray.push({...dataCopy, id: doc.id})
+  });
+  }
+  else{
+    console.log("uid undefined")
+    }
+  return dataCopyArray
+}
+
 
 export {
   registerUser,
@@ -183,6 +196,6 @@ export {
   editInfo,
   copyDataFirestore,
   updateUserProfile,
-  getCurrentAd,
-  getDataOnce
+  getDataOnce,
+  getCurrentUserAds
 }

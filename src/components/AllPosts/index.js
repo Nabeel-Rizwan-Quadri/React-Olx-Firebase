@@ -33,7 +33,7 @@ function AllPosts({searchedItem}) {
     {data.map((item,index) => {
           return <div onClick={() => goToDetails(item.id)}>
           
-          <img height="300" width="400px" alt="ad image" src={item.images[0] ? item.images[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"} ></img>
+          <img height="300" width="300" alt="ad image" src={item.images[0] ? item.images[0] : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/OLX_2019.svg/1200px-OLX_2019.svg.png"} ></img>
           
           <div className="product__cardbody" >
               <br/><h3 >Product Name: {item.title}</h3><br />
