@@ -80,8 +80,7 @@ function Auth() {
             <input 
             onChange={e => setPhotoURL(e.target.value)}
             type="file"/><br/>
-            
-
+          
             <input className="auth_input"
             onChange={e => setEmail(e.target.value)}
             type="email" placeholder="Enter your email" /><br/>

@@ -59,9 +59,7 @@
 .searchButton:hover{
   background-color: white;
   color: #333;
-
   transition: 0.5s all;
-
 }
 
 .dropbtn {

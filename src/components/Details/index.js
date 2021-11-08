@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import Header from "../Header"
-import Footer from "../Footer/Footer"
+import Footer from "../Footer"
 import "./index.css"
 import react, { useState, useEffect } from 'react'
 import { getDataOnce } from '../../config/firebase'

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { editInfo, copyDataFirestore  } from "../../config/firebase"
 import { useHistory } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/Footer';
 import Header from "../../components/Header";
 import NavBar from '../../components/NavBar';
 import "./index.css"
@@ -12,11 +12,10 @@ function EditInfo () {
         // sending request for a cpoy of current user's data from users collection
         // saving said value in user state
         setUserData( await copyDataFirestore(currentuid))
-        console.log("copyDataFirestore dashboard", userData)
     }, [])
 
     const [userData, setUserData] = useState("")
-    const {fullName, email, age, uid} = userData
+    const {fullName, email, age, phoneNumber, imageURL, uid} = userData
     console.log("userdata ", userData)
     
     const history = useHistory()
@@ -56,9 +55,10 @@ function EditInfo () {
         <div className="editinfo_card" >
             <h1 style={{color: "wheat" , padding:15}}>Edit info</h1>
 
-            <input  value={fullName} className="editinfo_input" type="string" onChange={e => onChangeValues("fullName", e)}></input><br/>
-            <input value={email} className="editinfo_input" type="email" onChange={e => onChangeValues("email", e)}></input><br/>
-            <input value={age} className="editinfo_input" type="number" onChange={e => onChangeValues("age", e)}></input><br/>
+            <input value={fullName} placeholer="Name" className="editinfo_input" type="string" onChange={e => onChangeValues("fullName", e)}></input><br/>
+            <input value={email} placeholer="email" className="editinfo_input" type="email" onChange={e => onChangeValues("email", e)}></input><br/>
+            <input value={age} placeholer="age" className="editinfo_input" type="number" onChange={e => onChangeValues("age", e)}></input><br/>
+            <input value={phoneNumber} placeholer="phoneNumber" className="editinfo_input" type="number" onChange={e => onChangeValues("phoneNumber", e)}></input><br/>
             <input type="file" onChange={e => onChangeValues("imageURL", e)}></input><br/>
 
             <button className="editinfo_btn" onClick={submit}>Edit</button><br/>

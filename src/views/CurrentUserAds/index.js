@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { callData } from '../../config/firebase';
 import './index.css';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/Footer';
 import NavBar from '../../components/NavBar';
 
 function CurrentUserAds({searchedItem}) {

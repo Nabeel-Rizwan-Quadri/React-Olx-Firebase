@@ -25,9 +25,6 @@ async function registerUser({email, password, fullName, age, phoneNumber, photoU
 
       await updateProfile(auth.currentUser, {
         displayName: fullName, 
-        age: age,
-        phoneNumber: phoneNumber,
-        photoURL: photoURL
       })
 
       await setDoc(doc(db, "users", uid), {
@@ -97,43 +94,17 @@ async function callData(searchedItem){
 async function editInfo (uid, edit){
   console.log("firebase edit: ",edit)
 
-  // let dataCopyArray = []
-  // let newData = {}
-
-  // await alert(uid)
-
-  // const q = query(collection(db, "users"))
-  // const querySnapshot = await getDocs(q);
-
-  // querySnapshot.forEach((doc) => {
-  //   let dataCopy = doc.data()
-  //   dataCopyArray.push(dataCopy)
-  // });
-
-  // for(let i=1; i < dataCopyArray.length; i++){
-  //   if(dataCopyArray[i].uid === uid){
-  //     newData = dataCopyArray[i]
-  //     // console.log(newData)
-  //   }
-  // }
-  // edit.fullName && (newData.fullName = edit.editedFullName)
-  // edit.age && (newData.age = edit.editedAge)
-
   await updateProfile(auth.currentUser, {
     displayName: edit.fullName, 
-    phoneNumber: edit.phoneNumber,
-    email: edit.email
   })
   console.log("Auth profile", auth.currentUser)
   alert("Auth profile updated")
-   
   
   await setDoc(doc(db, "users", uid), edit)
   alert('Data edited successfully!')
 }
 
 async function copyDataFirestore(uid){
-  console.log("firebase uid: ", uid)
   let dataCopyArray = []
   let currentUserInfo = {}
 
@@ -148,10 +119,8 @@ async function copyDataFirestore(uid){
   for(let i=0; i < dataCopyArray.length; i++){
     if(dataCopyArray[i].uid === uid){
       currentUserInfo = dataCopyArray[i]
-      // console.log("copyDataFirestore firebase", currentUserInfo)
     }
   }
-  console.log("firebase data: ",currentUserInfo)
   return currentUserInfo
 }
 
