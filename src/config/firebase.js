@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut  } from "firebase/auth"
-import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy, where } from "firebase/firestore"
+import { addDoc, collection, getFirestore, setDoc, doc, getDoc, getDocs, query, orderBy, where, deleteDoc } from "firebase/firestore"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
@@ -124,11 +124,10 @@ async function copyDataFirestore(uid){
   return currentUserInfo
 }
 
-// async function deleteData(ad){
-//   alert("Firebase data deleted")
-//   await alert(ad.uid)
-// await deleteDoc(doc(db, "users", user.uid));
-// }
+async function deleteData(adId){
+  console.log("Ad deleted with ad id: ", adId)
+  await deleteDoc(doc(db, "ads", adId));
+}
 
 // async function updateData(user){
 //   alert("Firebase data updated")
@@ -153,8 +152,6 @@ async function updateUserProfile (){
     photoURL: "https://example.com/jane-q-user/profile.jpg"
   })
 }
-
-
 
 async function getDataOnce(adId){
   let tempData 
@@ -191,7 +188,7 @@ export {
   storeData,
   logout,
   callData,
-  // deleteData,
+  deleteData,
   // updateData,
   editInfo,
   copyDataFirestore,

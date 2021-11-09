@@ -30,15 +30,21 @@
       min-width: none;
   }
   
-  h1{
-    margin-left: 40px ;
-  }
-
-.currrentUserAds_headder{
-  position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    margin: 10px 0 10px 0;
-    z-index: 100;
+h1{
+  margin-left: 40px ;
 }
-  
+
+.del_btn{
+  border-radius: 5px;
+  width: auto;
+  padding: 8px;
+  background-color: red;
+  color: white;
+  transition: 1s all;
+}
+
+.del_btn:hover{
+  background-color: white;
+  color: red;
+  transition: 0.5s all;
+}

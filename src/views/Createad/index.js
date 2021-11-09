@@ -49,7 +49,7 @@ function CreateAd({user})  {
   } 
 
   return <div className='createad_body'>
-
+    <div className='app_headder'><Header/></div>
     <NavBar/>
       <div className="createad_view" >
       <div className='createad_card'>
@@ -70,6 +70,7 @@ function CreateAd({user})  {
     <button className="createad_btn" onClick={back}>Back</button>
     </div>
     </div>
+    <Footer/>
   </div>
 }
 

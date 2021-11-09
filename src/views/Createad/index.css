@@ -9,12 +9,12 @@
     background-color: #333;
     color: black;
     padding: 30px;
-    margin: 20px;
+    margin: 60px;
     align-items: center;
     justify-content: center;
     max-width: 500px;
     border-radius: 5px;
-    box-shadow: 10px 10px 80px black; 
+    box-shadow: 5px 5px 10px #333; 
   }
 
   .createad_view{
@@ -55,5 +55,5 @@
 .createad_btn:hover{
   background-color: #333;
   color: wheat;
-  transition: 1s all;
+  transition: 0.5s all;
 }
