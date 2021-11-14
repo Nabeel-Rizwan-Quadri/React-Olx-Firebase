@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
-import { callData } from '../../config/firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAds } from '../../config/firebase';
+import { updateAds } from '../../store/actions/adsActions';
 import './index.css';
 
 function AllPosts({searchedItem}) {
   // console.log("Allposts search: ", searchedItem)
+  const dispatch = useDispatch()
+  const ads = useSelector(state => state.adsReducer.ads)
+  console.log("ads ",ads)
 
   useEffect(async() => {
-    const data = await callData(searchedItem)
+    const data = await getAllAds(searchedItem)
     setData(data)
+    dispatch(updateAds())
   }, [searchedItem])
 
   const [data, setData] = useState([])

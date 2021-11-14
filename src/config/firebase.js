@@ -66,7 +66,7 @@ async function storeData(data) {
   alert('Data added successfully!')
 }
 
-async function callData(searchedItem){
+async function getAllAds(searchedItem){
   // console.log("firebase searched data: ", searchedItem)
   let dataCopyArray = []
 
@@ -187,7 +187,7 @@ export {
   loginUser,
   storeData,
   logout,
-  callData,
+  getAllAds,
   deleteData,
   // updateData,
   editInfo,
